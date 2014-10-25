@@ -114,9 +114,7 @@ public class Play implements Screen{
 			camera.unproject(touchPos);
 			if(touchPos.x<70 && touchPos.y>460){
 				DinoMusic.pause();
-//			}else if(touchPos.x < 480) lane = Math.min(3, lane+1);
-//			else lane = Math.max(0, lane-1);
-			}else if(touchPos.x > 480) lane = Math.min(3, lane+1);
+			}else if(touchPos.x < 480) lane = Math.min(3, lane+1);
 			else lane = Math.max(0, lane-1);
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) lane = Math.max(0, lane-1);
@@ -210,7 +208,7 @@ public class Play implements Screen{
 		bigDino = new Texture(Gdx.files.internal("PlayScreen/fatdino.png"));
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
 		tree = new Texture(Gdx.files.internal("PlayScreen/tree.png"));
-		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen2.png"));
+		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen1.png"));
 		dinos = new Array<Entity>();
 		enemies = new Array<Entity>();
 		laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};
