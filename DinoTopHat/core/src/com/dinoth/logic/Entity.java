@@ -9,6 +9,7 @@ public class Entity {
 	private float imageWidth, imageHeight, xOffset, yOffset; //image size and offset from hitbox
 	private float baseSpeed;
 	private int lane;
+	protected boolean isGood;
 	
 	public Entity(Texture sprite, Rectangle hitBox, float imageWidth, float imageHeight, float xOffset, float yOffset, float baseSpeed){
 		this.sprite = sprite;
@@ -64,5 +65,10 @@ public class Entity {
 
 	public int getLane() {
 		return lane;
+	}
+
+	public boolean isGood() {
+		
+		return this.isGood;
 	}
 }

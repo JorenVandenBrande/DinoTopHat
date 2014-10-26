@@ -22,14 +22,11 @@ public class Play implements Screen{
 	private Texture deathScreen;
 	private Texture replayScreen;
 	private Texture tutScreen;
-
 	
 	private boolean showTut = true;
 	
 	private BitmapFont font;
 	private CharSequence scoreStr;
-	
-	Entity player;
 	
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -61,8 +58,8 @@ public class Play implements Screen{
 		}
 		scoreStr = "Score: "+playGame.getScore();
 		font.setScale((float)0.7);
-		font.draw(batch, scoreStr, 390, 510);
-		
+		font.draw(batch, scoreStr, 150, 510);
+		font.draw(batch, "multiplier: "+ playGame.getMultiplier() , 500, 510 );
 		if(playGame.isDeath()) this.drawDeathScreen();
 		if(showTut){
 			batch.draw(tutScreen, 0, 0, 960, 540);
