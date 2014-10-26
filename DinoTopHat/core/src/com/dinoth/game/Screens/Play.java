@@ -22,6 +22,7 @@ public class Play implements Screen{
 	private Texture deathScreen;
 	private Texture replayScreen;
 	private Texture tutScreen;
+	private Texture hitBox;
 	
 	private boolean showTut = true;
 	
@@ -55,6 +56,8 @@ public class Play implements Screen{
 		
 		for(Entity ent:playGame.makeSpriteList()){
 			batch.draw(ent.getSprite(), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
+			//draw hitboxes for debugging
+			//batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
 		}
 		scoreStr = "Score: "+playGame.getScore();
 		font.setScale((float)0.7);
@@ -104,7 +107,7 @@ public class Play implements Screen{
 		muteImage=new Texture(Gdx.files.internal("PlayScreen/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("PlayScreen/muted.png"));
 		
-		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
+		hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		
@@ -133,6 +136,7 @@ public class Play implements Screen{
 		backGround.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
+		hitBox.dispose();
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();

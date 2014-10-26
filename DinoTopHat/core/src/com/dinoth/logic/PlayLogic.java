@@ -207,7 +207,7 @@ public class PlayLogic {
 		score=0;
 		isDeath=false;
 		death=Gdx.audio.newSound(Gdx.files.internal("Sounds/boink.wav"));
-		eat=Gdx.audio.newSound(Gdx.files.internal("Sounds/omnomnom.wav"));
+		eat=Gdx.audio.newSound(Gdx.files.internal("Sounds/nom.wav"));
 		lastDinoTime = TimeUtils.nanoTime();
 		
 	}

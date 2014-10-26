@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class PlayerDino extends Entity{
 
 	public PlayerDino(Texture tex,Rectangle rect){
-		super(tex, rect, 83, 110, -30, 0, 0);
-		this.updateHitBoxDim(40, 50);
+		super(tex, rect, 83, 110, -35, 0, 0);
+		this.updateHitBoxDim(30, 50);
 	}
 }
