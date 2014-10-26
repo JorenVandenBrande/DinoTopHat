@@ -1,4 +1,4 @@
-package com.dinoth.game;
+package com.dinoth.logic;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
