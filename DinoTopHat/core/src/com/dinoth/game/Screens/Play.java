@@ -107,7 +107,7 @@ public class Play implements Screen{
 		muteImage=new Texture(Gdx.files.internal("PlayScreen/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("PlayScreen/muted.png"));
 		
-		hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
+		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		
