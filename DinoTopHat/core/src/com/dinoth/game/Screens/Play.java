@@ -40,7 +40,7 @@ public class Play implements Screen{
 		this.dinoGame=dinoGame;
 		batch=dinoGame.getBatch();
 		camera=dinoGame.getCamera();
-		playGame = new PlayLogic();
+		playGame = new PlayLogic(camera);
 	}
 
 	@Override
@@ -80,9 +80,9 @@ public class Play implements Screen{
 		batch.end();
 		if(!playGame.isDeath()){
 			if(!showTut)
-				playGame.keepPlaying(camera);
+				playGame.keepPlaying();
 		}else{
-			playGame.showDeathScreen(camera);
+			playGame.showDeathScreen();
 		}
 		
 	}

@@ -8,7 +8,7 @@ public class BigDino extends Entity{
 
 	public BigDino(Texture tex,Rectangle rect) {
 		super(tex, rect, 124, 130, -15, 0,400);
-		this.updateHitBoxCoords(50, 50);
+		this.updateHitBoxDim(50, 50);
 	}
 
 }

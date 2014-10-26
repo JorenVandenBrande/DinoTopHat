@@ -21,6 +21,8 @@ public class PlayLogic {
 	private Texture bigDino;
 	private Texture tree;
 	
+	private OrthographicCamera camera;
+	
 	private Entity player;
 	
 	
@@ -36,12 +38,12 @@ public class PlayLogic {
 
 	private boolean isDeath;
 	
-	public PlayLogic(){
-		
+	public PlayLogic(OrthographicCamera camera){
+		this.camera = camera;
 	}
 	
 
-	public void keepPlaying(OrthographicCamera camera) {
+	public void keepPlaying() {
 		if(Gdx.input.justTouched()){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -102,7 +104,7 @@ public class PlayLogic {
 		
 	}
 	
-	public void showDeathScreen(OrthographicCamera camera) {
+	public void showDeathScreen() {
 		if(Gdx.input.justTouched()){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);

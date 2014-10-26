@@ -24,6 +24,11 @@ public class Entity {
 		this.hitBox.y = y;
 	}
 	
+	public void updateHitBoxDim(float width, float height){
+		this.hitBox.width = width;
+		this.hitBox.height = height;
+	}
+	
 	public float getImageWidth(){
 		return this.imageWidth;
 	}
