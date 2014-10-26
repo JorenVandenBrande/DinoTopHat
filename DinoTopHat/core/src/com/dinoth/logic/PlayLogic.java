@@ -169,10 +169,10 @@ public class PlayLogic {
 
 
 	public void create() {
-		userDino = new Texture(Gdx.files.internal("PlayScreen/playerdino.png"));
-		smallDino = new Texture(Gdx.files.internal("PlayScreen/smalldino.png"));
-		bigDino = new Texture(Gdx.files.internal("PlayScreen/fatdino.png"));
-		tree = new Texture(Gdx.files.internal("PlayScreen/tree.png"));
+		userDino = new Texture(Gdx.files.internal("PlayLogic/playerdino.png"));
+		smallDino = new Texture(Gdx.files.internal("PlayLogic/smalldino.png"));
+		bigDino = new Texture(Gdx.files.internal("PlayLogic/fatdino.png"));
+		tree = new Texture(Gdx.files.internal("PlayLogic/tree.png"));
 		dinos = new Array<Entity>();
 		enemies = new Array<Entity>();
 		laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};

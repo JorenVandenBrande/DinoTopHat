@@ -9,7 +9,7 @@ public class DinoMusic {
 	private static boolean isPlaying;
 	
 	public static void run(){
-		music=Gdx.audio.newMusic(Gdx.files.internal("MainMenu/music.mp3"));
+		music=Gdx.audio.newMusic(Gdx.files.internal("Music/music.mp3"));
 		music.setLooping(true);
 		music.play();
 		isPlaying=true;

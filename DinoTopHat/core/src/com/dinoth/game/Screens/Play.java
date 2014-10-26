@@ -22,7 +22,7 @@ public class Play implements Screen{
 	private Texture deathScreen;
 	private Texture replayScreen;
 	private Texture tutScreen;
-	//private Texture hitBox;
+
 	
 	private boolean showTut = true;
 	
@@ -104,12 +104,12 @@ public class Play implements Screen{
 		playGame.create();
 		
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
-		muteImage=new Texture(Gdx.files.internal("MainMenu/dinomute.png"));
-		mutedIm = new Texture(Gdx.files.internal("MainMenu/muted.png"));
+		muteImage=new Texture(Gdx.files.internal("PlayScreen/dinomute.png"));
+		mutedIm = new Texture(Gdx.files.internal("PlayScreen/muted.png"));
 		
 		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
-		deathScreen = new Texture(Gdx.files.internal("MainMenu/deathscreen.png"));
-		replayScreen= new Texture(Gdx.files.internal("MainMenu/dinoreplay.png"));
+		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
+		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		
 	}
 	

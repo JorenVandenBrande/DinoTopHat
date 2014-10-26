@@ -20,7 +20,6 @@ public class MainMenu implements Screen{
 	private Texture playImage;
 	private Texture highScoreImage;
 	private Texture muteImage;
-	private Texture titleImage;
 	private Texture mutedIm;
 	
 	private OrthographicCamera camera;
@@ -87,7 +86,6 @@ public class MainMenu implements Screen{
 	@Override
 	public void show() {
 		backgroundImage = new Texture(Gdx.files.internal("MainMenu/dinoback.png"));
-		titleImage = new Texture(Gdx.files.internal("MainMenu/title.png"));
 		playImage=new Texture(Gdx.files.internal("MainMenu/dinoplay.png"));
 		muteImage = new Texture(Gdx.files.internal("MainMenu/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("MainMenu/muted.png"));
@@ -123,7 +121,6 @@ public class MainMenu implements Screen{
 		highScoreImage.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
-		titleImage.dispose();
 		
 	}
 

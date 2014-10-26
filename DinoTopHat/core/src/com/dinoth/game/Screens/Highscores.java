@@ -84,7 +84,7 @@ public class Highscores implements Screen{
 
 	@Override
 	public void show() {
-		backgroundImage = new Texture(Gdx.files.internal("MainMenu/dinoback.png"));
+		backgroundImage = new Texture(Gdx.files.internal("Highscores/dinoback.png"));
 		//font = new BitmapFont(Gdx.files.internal("fonts/comicsanswhite.fnt"));
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
 		scores=LocalIOHandler.getHighScores();
@@ -94,7 +94,7 @@ public class Highscores implements Screen{
 		fourth="4. "+scores[3];
 		fifth="5. "+scores[4];
 		
-		returnToMenu = new Texture(Gdx.files.internal("MainMenu/deathscreen.png"));
+		returnToMenu = new Texture(Gdx.files.internal("Highscores/scorebackground.png"));
 	}
 
 	@Override
