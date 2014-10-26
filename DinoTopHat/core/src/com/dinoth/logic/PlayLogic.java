@@ -83,8 +83,8 @@ public class PlayLogic {
 				iter.remove();
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox())&& dino.isGood()){
-	
-				eat.setVolume(eat.play(), 1);
+				if(DinoMusic.isPlaying())
+					eat.setVolume(eat.play(), 1);
 				score+=1*multiplier;
 				if(streak == n){
 					multiplier++;
@@ -101,7 +101,8 @@ public class PlayLogic {
 				iter.remove();		
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox()) && !dino.isGood()){
-				death.play();
+				if(DinoMusic.isPlaying())
+					death.play();
 				allDinos=new Array<Entity>();
 				speedIncrease=20;
 				spawnDelay = 1000000000;
