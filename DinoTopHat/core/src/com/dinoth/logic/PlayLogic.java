@@ -2,8 +2,10 @@ package com.dinoth.logic;
 
 import java.util.Iterator;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.MathUtils;
@@ -39,6 +41,9 @@ public class PlayLogic {
 	private boolean isDeath;
 	private int streak;
 	private int dinoCounter;
+	
+	private Sound death;
+	private Sound eat;
 	
 	public PlayLogic(OrthographicCamera camera){
 		this.camera = camera;
@@ -78,6 +83,8 @@ public class PlayLogic {
 				iter.remove();
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox())&& dino.isGood()){
+	
+				eat.setVolume(eat.play(), 1);
 				score+=1*multiplier;
 				if(streak == n){
 					multiplier++;
@@ -94,6 +101,7 @@ public class PlayLogic {
 				iter.remove();		
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox()) && !dino.isGood()){
+				death.play();
 				allDinos=new Array<Entity>();
 				speedIncrease=20;
 				spawnDelay = 1000000000;
@@ -198,6 +206,8 @@ public class PlayLogic {
 		player.setLane(lane);
 		score=0;
 		isDeath=false;
+		death=Gdx.audio.newSound(Gdx.files.internal("Sounds/boink.wav"));
+		eat=Gdx.audio.newSound(Gdx.files.internal("Sounds/omnomnom.wav"));
 		lastDinoTime = TimeUtils.nanoTime();
 		
 	}

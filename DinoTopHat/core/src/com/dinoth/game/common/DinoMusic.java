@@ -12,6 +12,7 @@ public class DinoMusic {
 		music=Gdx.audio.newMusic(Gdx.files.internal("Music/music.mp3"));
 		music.setLooping(true);
 		music.play();
+		music.setVolume((float) 0.25);
 		isPlaying=true;
 	}
 	
