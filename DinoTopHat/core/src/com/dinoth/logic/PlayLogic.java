@@ -231,7 +231,7 @@ public class PlayLogic {
 		
 		Array<Entity> returnList=new Array<Entity>(allDinos);
 		if( returnList.size==0 || player.getLane()==3){
-			returnList.add(player);
+			returnList.insert(0,player);
 			return returnList;
 		}
 		int count=0;
