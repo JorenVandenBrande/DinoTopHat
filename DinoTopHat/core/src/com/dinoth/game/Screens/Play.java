@@ -55,17 +55,10 @@ public class Play implements Screen{
 			batch.draw(muteImage,10,460,70,70);
 		else
 			batch.draw(mutedIm,10,460,70,70);
-		for(Entity dino:playGame.getDinos()){
-			batch.draw(dino.getSprite(), dino.getImageX(), dino.getImageY(), dino.getImageWidth(), dino.getImageHeight());
-			//batch.draw(hitBox, dino.getHitBox().x, dino.getHitBox().y, dino.getHitBox().width, dino.getHitBox().height);
+		
+		for(Entity ent:playGame.makeSpriteList()){
+			batch.draw(ent.getSprite(), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
 		}
-		for(Entity enemy:playGame.getEnemies()){
-			batch.draw(enemy.getSprite(), enemy.getImageX(), enemy.getImageY(), enemy.getImageWidth(), enemy.getImageHeight());
-			//batch.draw(hitBox, enemy.getHitBox().x, enemy.getHitBox().y, enemy.getHitBox().width, enemy.getHitBox().height);
-		}
-		player = playGame.getPlayer();
-		batch.draw(player.getSprite(), player.getImageX(), player.getImageY(), player.getImageWidth(), player.getImageHeight());
-		//batch.draw(hitBox, player.getHitBox().x, player.getHitBox().y, player.getHitBox().width, player.getHitBox().height);
 		scoreStr = "Score: "+playGame.getScore();
 		font.setScale((float)0.7);
 		font.draw(batch, scoreStr, 390, 510);

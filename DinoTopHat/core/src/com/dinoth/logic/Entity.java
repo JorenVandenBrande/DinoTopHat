@@ -8,6 +8,7 @@ public class Entity {
 	private Rectangle hitBox;
 	private float imageWidth, imageHeight, xOffset, yOffset; //image size and offset from hitbox
 	private float baseSpeed;
+	private int lane;
 	
 	public Entity(Texture sprite, Rectangle hitBox, float imageWidth, float imageHeight, float xOffset, float yOffset, float baseSpeed){
 		this.sprite = sprite;
@@ -55,5 +56,13 @@ public class Entity {
 	
 	public Rectangle getHitBox(){
 		return this.hitBox;
+	}
+
+	public void setLane(int dinoLane) {
+		this.lane=dinoLane;
+	}
+
+	public int getLane() {
+		return lane;
 	}
 }

@@ -56,6 +56,7 @@ public class PlayLogic {
 		if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) lane = Math.max(0, lane-1);
 		if(Gdx.input.isKeyJustPressed(Keys.LEFT)) lane = Math.min(3, lane+1);
 		player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);
+		player.setLane(lane);
 		if(TimeUtils.nanoTime() - lastDinoTime > spawnDelay) spawnDino();
 		Iterator<Entity> iter = dinos.iterator();
 		while(iter.hasNext()){
@@ -115,6 +116,7 @@ public class PlayLogic {
 				lane=0;
 				speedMult = 1;
 				player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);
+				player.setLane(0);
 				dinos = new Array<Entity>();
 				enemies = new Array<Entity>();
 			}
@@ -127,19 +129,23 @@ public class PlayLogic {
 		int dinoLane = MathUtils.random(0,3);
 		dino.y = laneCoordinates[dinoLane][1];
 		int type = MathUtils.random(0,100);
+		Entity ent;
 		if(type <=50){
-			dinos.add(new SmallDino(smallDino,dino));
+			ent = new SmallDino(smallDino,dino);
+			dinos.add(ent);
 		}
 		else{
 			int enemyType = MathUtils.random(0,100); 
 			if(enemyType > 70){
-				enemies.add(new PalmTree(tree,dino));
+				ent = new PalmTree(tree,dino);
+				enemies.add(ent);
 			}
 			else{
-				enemies.add(new BigDino(bigDino,dino));
+				ent = new BigDino(bigDino,dino);
+				enemies.add(ent);
 			}
 		}
-		
+		ent.setLane(dinoLane);
 		lastDinoTime = TimeUtils.nanoTime();
 	}
 
@@ -175,6 +181,7 @@ public class PlayLogic {
 		userDinoRect.x = laneCoordinates[lane][0];
 		userDinoRect.y = laneCoordinates[lane][1];
 		player = new PlayerDino(userDino,userDinoRect);
+		player.setLane(lane);
 		score=0;
 		isDeath=false;
 		lastDinoTime = TimeUtils.nanoTime();
@@ -192,6 +199,28 @@ public class PlayLogic {
 		smallDino.dispose();
 		bigDino.dispose();
 		tree.dispose();
+		
+	}
+
+
+	public Array<Entity> makeSpriteList() {
+		Array<Entity> returnList=new Array<Entity>();
+		returnList.add(player);
+		for(Entity dino:this.dinos){
+			int count=0;
+			for(Entity ent:returnList){
+				if(ent.getLane()>dino.getLane()) count++;
+			}
+			returnList.insert(count, dino);
+		}
+		for(Entity enemy:this.enemies){
+			int count=0;
+			for(Entity ent:returnList){
+				if(ent.getLane()>enemy.getLane()) count++;
+			}
+			returnList.insert(count, enemy);
+		}
+		return returnList;
 		
 	}
 }
