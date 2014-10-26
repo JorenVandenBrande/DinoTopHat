@@ -146,6 +146,7 @@ public class Play implements Screen{
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();
+		playGame.dispose();
 		
 	}
 
