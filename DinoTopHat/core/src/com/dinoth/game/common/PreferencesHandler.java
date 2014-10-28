@@ -24,6 +24,7 @@ public class PreferencesHandler {
 			prefs.putString(keys[i], next);
 			next = temp;
 		}
+		prefs.flush();
 	}
 	
 	public static int[] getHighScores(){
