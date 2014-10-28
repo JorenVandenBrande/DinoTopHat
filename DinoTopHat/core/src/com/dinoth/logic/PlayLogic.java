@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.common.DinoMusic;
-import com.dinoth.game.common.LocalIOHandler;
 import com.dinoth.game.common.PreferencesHandler;
 import com.dinoth.strategy.EasyStrategy;
 
@@ -31,6 +30,7 @@ public class PlayLogic {
 	private int lane;
 	private long lastDinoTime;
 	private int score = 0;
+	private int baseMultiplier;
 	private int multiplier;
 	private int n;
 	
@@ -74,7 +74,7 @@ public class PlayLogic {
 			Entity dino = iter.next();
 			dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed()+speedIncrease)*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
 			if(dino.getHitBox().x + 100 < 0 && dino.isGood()){
-				multiplier=1;
+				multiplier=baseMultiplier;
 				streak=0;
 				n=5;
 				iter.remove();
@@ -138,6 +138,11 @@ public class PlayLogic {
 		
 		this.addEntity(easyStrat.spawnDino());
 		lastDinoTime = TimeUtils.nanoTime();
+		if(baseMultiplier!=easyStrat.getBaseMultiplier()){
+			baseMultiplier=easyStrat.getBaseMultiplier();
+			multiplier++;
+		}
+		
 	}
 
 

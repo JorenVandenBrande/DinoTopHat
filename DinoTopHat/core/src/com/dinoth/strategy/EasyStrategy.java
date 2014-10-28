@@ -57,4 +57,10 @@ public class EasyStrategy extends Strategy{
 		return speedIncrease;
 	}
 
+	public int getBaseMultiplier() {
+		
+		return dinoCounter/150 +1;
+
+	}
+
 }

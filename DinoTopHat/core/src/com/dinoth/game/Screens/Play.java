@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
-import com.dinoth.game.common.LocalIOHandler;
 import com.dinoth.game.common.PreferencesHandler;
 import com.dinoth.logic.Entity;
 import com.dinoth.logic.PlayLogic;

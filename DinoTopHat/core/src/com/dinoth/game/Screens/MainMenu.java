@@ -1,18 +1,15 @@
 package com.dinoth.game.Screens;
 
-import com.dinoth.game.DinoTopHat;
-import com.dinoth.game.common.DinoMusic;
-import com.dinoth.game.common.LocalIOHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.dinoth.game.DinoTopHat;
+import com.dinoth.game.common.DinoMusic;
 
 public class MainMenu implements Screen{
 	
