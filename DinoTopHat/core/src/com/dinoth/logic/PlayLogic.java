@@ -128,6 +128,7 @@ public class PlayLogic {
 				allDinos = new Array<Entity>();
 				streak=0;
 				multiplier=1;
+				baseMultiplier=1;
 				n=5;
 				easyStrat.recreate();
 			}
