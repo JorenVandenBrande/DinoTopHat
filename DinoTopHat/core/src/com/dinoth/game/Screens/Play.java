@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.LocalIOHandler;
+import com.dinoth.game.common.PreferencesHandler;
 import com.dinoth.logic.Entity;
 import com.dinoth.logic.PlayLogic;
 
@@ -86,7 +87,8 @@ public class Play implements Screen{
 		font.draw(batch, "You are dead!", 310, 440);
 		font.setScale((float)0.5);
 		font.draw(batch, "score: "+ playGame.getScore(), 320, 370);
-		font.draw(batch, "Highest score: "+ LocalIOHandler.getHighScores()[0], 320, 320);
+		//font.draw(batch, "Highest score: "+ LocalIOHandler.getHighScores()[0], 320, 320);
+		font.draw(batch, "Highest score: "+	PreferencesHandler.getHighScores()[0], 320, 320);
 		batch.draw(replayScreen,395,100,170,160);
 	}
 

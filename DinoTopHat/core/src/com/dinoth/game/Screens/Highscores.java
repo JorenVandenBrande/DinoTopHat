@@ -2,6 +2,7 @@ package com.dinoth.game.Screens;
 
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.LocalIOHandler;
+import com.dinoth.game.common.PreferencesHandler;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -87,7 +88,8 @@ public class Highscores implements Screen{
 		backgroundImage = new Texture(Gdx.files.internal("Highscores/dinoback.png"));
 		//font = new BitmapFont(Gdx.files.internal("fonts/comicsanswhite.fnt"));
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
-		scores=LocalIOHandler.getHighScores();
+		//scores=LocalIOHandler.getHighScores();
+		scores=PreferencesHandler.getHighScores();
 		first="1. "+scores[0];
 		second="2. "+scores[1];
 		third="3. "+scores[2];

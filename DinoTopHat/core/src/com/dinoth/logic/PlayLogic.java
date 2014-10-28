@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.LocalIOHandler;
+import com.dinoth.game.common.PreferencesHandler;
 
 public class PlayLogic {
 
@@ -106,7 +107,8 @@ public class PlayLogic {
 				allDinos=new Array<Entity>();
 				speedIncrease=20;
 				spawnDelay = 1000000000;
-				LocalIOHandler.postHighScore(score);
+				//LocalIOHandler.postHighScore(score);
+				PreferencesHandler.postHighScore(score);
 				isDeath=true;
 				
 				break;
