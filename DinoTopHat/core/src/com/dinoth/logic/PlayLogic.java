@@ -174,6 +174,7 @@ public class PlayLogic {
 		lane = 0;
 		n=5;
 		streak=0;
+		baseMultiplier=1;
 		multiplier=1;
 		Rectangle userDinoRect = new Rectangle();
 		userDinoRect.x = laneCoordinates[lane][0];
