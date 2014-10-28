@@ -136,7 +136,7 @@ public class Play implements Screen{
 		backGround.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
-		hitBox.dispose();
+		//hitBox.dispose();
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();

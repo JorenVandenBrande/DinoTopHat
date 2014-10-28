@@ -2,33 +2,30 @@ package com.dinoth.logic;
 
 import java.util.Iterator;
 
-import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.LocalIOHandler;
+import com.dinoth.strategy.EasyStrategy;
 
 public class PlayLogic {
 
 	private Texture userDino;
-	private Texture smallDino;
-	private Texture bigDino;
-	private Texture tree;
 	
 	private OrthographicCamera camera;
 	
 	private Entity player;
+	private EasyStrategy easyStrat;
 	
 	private Array<Entity> allDinos;
-	private int[][] laneCoordinates;
+	public static final int[][] laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};
 	private int lane;
 	private long lastDinoTime;
 	private int score = 0;
@@ -40,13 +37,14 @@ public class PlayLogic {
 
 	private boolean isDeath;
 	private int streak;
-	private int dinoCounter;
+	
 	
 	private Sound death;
 	private Sound eat;
 	
 	public PlayLogic(OrthographicCamera camera){
 		this.camera = camera;
+		this.easyStrat = new EasyStrategy();
 	}
 	
 
@@ -66,11 +64,8 @@ public class PlayLogic {
 		player.setLane(lane);
 		if(TimeUtils.nanoTime() - lastDinoTime > spawnDelay) {
 			spawnDino();
-			if(dinoCounter%7==0){
-				if(speedIncrease<350)
-					speedIncrease+=40;
-				spawnDelay = (float) Math.max(100000000, spawnDelay*0.9);
-			}
+			speedIncrease=easyStrat.getSpeedIncrease(speedIncrease);
+			spawnDelay = easyStrat.getSpawnDelay(spawnDelay);
 		}
 		Iterator<Entity> iter = allDinos.iterator();
 		while(iter.hasNext()){
@@ -125,44 +120,20 @@ public class PlayLogic {
 				score=0;
 				lane=0;
 				speedIncrease=20;
-				dinoCounter=0;
 				player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);
 				player.setLane(0);
 				allDinos = new Array<Entity>();
 				streak=0;
 				multiplier=1;
 				n=5;
+				easyStrat.recreate();
 			}
 		}
 	}
 	
 	private void spawnDino(){
-		Rectangle dino = new Rectangle();
-		dino.x = 1000;
-		int dinoLane = MathUtils.random(0,3);
-		dino.y = laneCoordinates[dinoLane][1];
-		int type = MathUtils.random(0,100);
-		int randomness=70;
-		Entity ent;
-		if(dinoCounter>50)randomness=50;
-		if(dinoCounter>100){
-			randomness=30;
-		}
-		if(type <=randomness){
-			ent = new SmallDino(smallDino,dino);
-		}
-		else{
-			int enemyType = MathUtils.random(0,100); 
-			if(enemyType > 70){
-				ent = new PalmTree(tree,dino);
-			}
-			else{
-				ent = new BigDino(bigDino,dino);
-			}
-		}
-		ent.setLane(dinoLane);
-		dinoCounter++;
-		this.addEntity(ent);
+		
+		this.addEntity(easyStrat.spawnDino());
 		lastDinoTime = TimeUtils.nanoTime();
 	}
 
@@ -190,16 +161,12 @@ public class PlayLogic {
 
 	public void create() {
 		userDino = new Texture(Gdx.files.internal("PlayLogic/playerdino.png"));
-		smallDino = new Texture(Gdx.files.internal("PlayLogic/smalldino.png"));
-		bigDino = new Texture(Gdx.files.internal("PlayLogic/fatdino.png"));
-		tree = new Texture(Gdx.files.internal("PlayLogic/tree.png"));
+		easyStrat.recreate();
 		allDinos=new Array<Entity>();
-		laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};
 		lane = 0;
 		n=5;
 		streak=0;
 		multiplier=1;
-		dinoCounter=0;
 		Rectangle userDinoRect = new Rectangle();
 		userDinoRect.x = laneCoordinates[lane][0];
 		userDinoRect.y = laneCoordinates[lane][1];
@@ -221,9 +188,7 @@ public class PlayLogic {
 
 	public void dispose() {
 		userDino.dispose();
-		smallDino.dispose();
-		bigDino.dispose();
-		tree.dispose();
+		easyStrat.dispose();
 		
 	}
 
