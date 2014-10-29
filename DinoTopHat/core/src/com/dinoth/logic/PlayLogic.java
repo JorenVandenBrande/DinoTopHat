@@ -60,8 +60,8 @@ public class PlayLogic {
 			}else if(touchPos.x < 480) lane = Math.min(3, lane+1);
 			else lane = Math.max(0, lane-1);
 		}
-		if(Gdx.input.isKeyJustPressed(Keys.RIGHT)) lane = Math.max(0, lane-1);
-		if(Gdx.input.isKeyJustPressed(Keys.LEFT)) lane = Math.min(3, lane+1);
+		if(Gdx.input.isKeyJustPressed(Keys.RIGHT) || Gdx.input.isKeyJustPressed(Keys.DOWN)) lane = Math.max(0, lane-1);
+		if(Gdx.input.isKeyJustPressed(Keys.LEFT) || Gdx.input.isKeyJustPressed(Keys.UP)) lane = Math.min(3, lane+1);
 		player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);
 		player.setLane(lane);
 		if(TimeUtils.nanoTime() - lastDinoTime > spawnDelay) {
