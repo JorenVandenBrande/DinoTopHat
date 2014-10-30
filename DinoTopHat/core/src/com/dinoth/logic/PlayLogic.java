@@ -57,8 +57,12 @@ public class PlayLogic {
 			camera.unproject(touchPos);
 			if(touchPos.x<70 && touchPos.y>460){
 				DinoMusic.pause();
-			}else if(touchPos.x < 480) lane = Math.min(3, lane+1);
-			else lane = Math.max(0, lane-1);
+			}
+//			else if(touchPos.x < 480) lane = Math.min(3, lane+1);
+//			else lane = Math.max(0, lane-1);
+			else{
+				lane = Math.max(0, Math.min(3, lane + Controls.clickEvent(touchPos.x, touchPos.y)));
+			}
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.RIGHT) || Gdx.input.isKeyJustPressed(Keys.DOWN)) lane = Math.max(0, lane-1);
 		if(Gdx.input.isKeyJustPressed(Keys.LEFT) || Gdx.input.isKeyJustPressed(Keys.UP)) lane = Math.min(3, lane+1);

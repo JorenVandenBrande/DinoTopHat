@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector3;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
+import com.dinoth.logic.Controls;
 import com.dinoth.logic.Entity;
 import com.dinoth.logic.PlayLogic;
 
@@ -22,6 +24,7 @@ public class Play implements Screen{
 	private Texture deathScreen;
 	private Texture replayScreen;
 	private Texture tutScreen;
+	private Texture controlSelect;
 	private Texture hitBox;
 	
 	private boolean showTut = true;
@@ -64,7 +67,16 @@ public class Play implements Screen{
 		font.draw(batch, scoreStr, 150, 510);
 		font.draw(batch, "multiplier: "+ playGame.getMultiplier() , 500, 510 );
 		if(playGame.isDeath()) this.drawDeathScreen();
-		if(showTut){
+		if(Controls.showControlSelect()){
+			batch.draw(controlSelect, 0, 0, 960, 540);
+			if(Gdx.input.justTouched()){
+				Vector3 touchPos = new Vector3();
+				touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+				camera.unproject(touchPos);
+				tutScreen = Controls.selectMode(touchPos.x, touchPos.y);
+			}
+		}
+		else if(showTut){
 			batch.draw(tutScreen, 0, 0, 960, 540);
 			if(Gdx.input.justTouched()){
 				showTut = false;
@@ -102,6 +114,7 @@ public class Play implements Screen{
 		
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen1.png"));
+		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
 		playGame.create();
 		
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
@@ -141,6 +154,7 @@ public class Play implements Screen{
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();
+		controlSelect.dispose();
 		playGame.dispose();
 		
 	}
