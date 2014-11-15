@@ -26,8 +26,8 @@ public abstract class Strategy {
 	
 	public void recreate(){
 		dinoCounter=0;
-		smallDino = new Texture(Gdx.files.internal("PlayLogic/smalldino.png"));
-		bigDino = new Texture(Gdx.files.internal("PlayLogic/fatdino.png"));
+		smallDino = new Texture(Gdx.files.internal("PlayLogic/smalldinosheet.png"));
+		bigDino = new Texture(Gdx.files.internal("PlayLogic/fatdinosheet.png"));
 		tree = new Texture(Gdx.files.internal("PlayLogic/tree.png"));
 	}
 }

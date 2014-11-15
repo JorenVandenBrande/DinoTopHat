@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 public class BigDino extends Entity{
 
 	public BigDino(Texture tex,Rectangle rect) {
-		super(tex, rect, 124, 130, -35, 0,400, 1, 1);
+		super(tex, rect, 124, 130, -35, 0,400, 1, 8);
 		this.updateHitBoxDim(40, 50);
 		this.isGood=false;
 	}
