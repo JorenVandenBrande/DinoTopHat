@@ -173,7 +173,7 @@ public class PlayLogic {
 
 
 	public void create() {
-		userDino = new Texture(Gdx.files.internal("PlayLogic/playerdino.png"));
+		userDino = new Texture(Gdx.files.internal("PlayLogic/playerdinosheet.png"));
 		easyStrat.recreate();
 		allDinos=new Array<Entity>();
 		lane = 0;

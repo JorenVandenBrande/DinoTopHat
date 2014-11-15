@@ -36,6 +36,8 @@ public class Play implements Screen{
 	private SpriteBatch batch;
 	private DinoTopHat dinoGame;
 	private PlayLogic playGame;
+	
+	private float stateTime = 0f;
 
 	public Play(DinoTopHat dinoGame) {
 		this.dinoGame=dinoGame;
@@ -46,6 +48,7 @@ public class Play implements Screen{
 
 	@Override
 	public void render(float delta) {
+		stateTime += Gdx.graphics.getDeltaTime();
 		Gdx.gl.glClearColor(0, 0, 0.8f, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		camera.update();
@@ -58,7 +61,7 @@ public class Play implements Screen{
 			batch.draw(mutedIm,10,460,70,70);
 		
 		for(Entity ent:playGame.makeSpriteList()){
-			batch.draw(ent.getSprite(), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
+			batch.draw(ent.getFrame(stateTime), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
 			//draw hitboxes for debugging
 			//batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
 		}
