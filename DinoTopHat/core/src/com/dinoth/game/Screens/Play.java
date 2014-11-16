@@ -2,6 +2,7 @@ package com.dinoth.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -109,7 +110,11 @@ public class Play implements Screen{
 			if(!showTut1 && !showTut2)
 				playGame.keepPlaying();
 		}else{
-			if(playGame.showDeathScreen()==1) dinoGame.setScreen(dinoGame.getMainMenu());
+			if(playGame.showDeathScreen()==1){
+				dinoGame.setScreen(dinoGame.getMainMenu());
+				Controls.resetControlSelect();
+				showTut1 = true;
+			}
 		}
 		
 	}
@@ -122,8 +127,8 @@ public class Play implements Screen{
 		font.draw(batch, "score: "+ playGame.getScore(), 320, 370);
 		//font.draw(batch, "Highest score: "+ LocalIOHandler.getHighScores()[0], 320, 320);
 		font.draw(batch, "Highest score: "+	PreferencesHandler.getHighScores()[0], 320, 320);
-		batch.draw(replayScreen,615,100,170,160);
-		batch.draw(menuButton,175,100,170,160);
+		batch.draw(replayScreen,490,100,170,160);
+		batch.draw(menuButton,290,100,170,160);
 	}
 
 
@@ -137,7 +142,7 @@ public class Play implements Screen{
 		
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen1.png"));
-		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreen2.png"));
+		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
 		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
 		playGame.create();
 		
@@ -149,7 +154,7 @@ public class Play implements Screen{
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
-		menuButton = new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
+		menuButton = new Texture(Gdx.files.internal("PlayScreen/dinomenu.png"));
 		sprite=new Sprite(backGround);
 		
 	}

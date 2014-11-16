@@ -7,7 +7,7 @@ public class Controls {
 	
 	private static boolean showControlSelect = true;
 	
-	private static String[] paths = new String[]{"PlayScreen/tutscreen1.png", "PlayScreen/tutscreen2.png", "PlayScreen/tutscreen3.png"};
+	private static String[] paths = new String[]{"PlayScreen/tutscreen1v2.png", "PlayScreen/tutscreen2v2.png", "PlayScreen/tutscreen3v2.png"};
 	
 	private static int mode = 0;
 	
@@ -34,6 +34,10 @@ public class Controls {
 	
 	public static boolean showControlSelect(){
 		return showControlSelect;
+	}
+	
+	public static void resetControlSelect(){
+		showControlSelect = true;
 	}
 	
 	public static int clickEvent(float x, float y){
