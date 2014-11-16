@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
@@ -19,6 +20,12 @@ import com.dinoth.strategy.EasyStrategy;
 public class PlayLogic {
 
 	private Texture userDino;
+	private Texture chicky;
+	
+	Sprite chicklettSprite;
+	
+	private float fadingFactor=0.0f;
+	private float placement;
 	
 	private OrthographicCamera camera;
 	
@@ -31,14 +38,14 @@ public class PlayLogic {
 	private long lastDinoTime;
 	private int score = 0;
 	private int baseMultiplier;
-	private int multiplier;
-	private int n;
+//	private int multiplier;
+//	private int n;
 	
 	private int speedIncrease= 20;
 	private float spawnDelay = 1000000000;
 
 	private boolean isDeath;
-	private int streak;
+	//private int streak;
 	
 	
 	private Sound death;
@@ -78,23 +85,16 @@ public class PlayLogic {
 			Entity dino = iter.next();
 			dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed()+speedIncrease)*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
 			if(dino.getHitBox().x + 100 < 0 && dino.isGood()){
-				multiplier=baseMultiplier;
-				streak=0;
-				n=5;
+				
+				
 				iter.remove();
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox())&& dino.isGood()){
 				if(DinoMusic.isPlaying())
 					eat.setVolume(eat.play(), 1);
-				score+=1*multiplier;
-				if(streak == n){
-					multiplier++;
-					streak=0;
-					n*=2;
-					
-					
-				}
-				streak++;
+				score+=1*baseMultiplier;
+				fadingFactor=1.0f;
+				placement=0;
 				iter.remove();
 			}
 			if(dino.getHitBox().x + 100 < 0 && !dino.isGood()){
@@ -110,7 +110,8 @@ public class PlayLogic {
 				//LocalIOHandler.postHighScore(score);
 				PreferencesHandler.postHighScore(score);
 				isDeath=true;
-				
+				fadingFactor=0.0f;
+				placement=0;
 				break;
 			}
 		}
@@ -130,10 +131,7 @@ public class PlayLogic {
 				player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);
 				player.setLane(0);
 				allDinos = new Array<Entity>();
-				streak=0;
-				multiplier=1;
 				baseMultiplier=1;
-				n=5;
 				easyStrat.recreate();
 			}
 		}
@@ -145,7 +143,6 @@ public class PlayLogic {
 		lastDinoTime = TimeUtils.nanoTime();
 		if(baseMultiplier!=easyStrat.getBaseMultiplier()){
 			baseMultiplier=easyStrat.getBaseMultiplier();
-			multiplier++;
 		}
 		
 	}
@@ -177,10 +174,7 @@ public class PlayLogic {
 		easyStrat.recreate();
 		allDinos=new Array<Entity>();
 		lane = 0;
-		n=5;
-		streak=0;
 		baseMultiplier=1;
-		multiplier=1;
 		Rectangle userDinoRect = new Rectangle();
 		userDinoRect.x = laneCoordinates[lane][0];
 		userDinoRect.y = laneCoordinates[lane][1];
@@ -191,7 +185,8 @@ public class PlayLogic {
 		death=Gdx.audio.newSound(Gdx.files.internal("Sounds/boink.wav"));
 		eat=Gdx.audio.newSound(Gdx.files.internal("Sounds/nom.wav"));
 		lastDinoTime = TimeUtils.nanoTime();
-		
+		chicky = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
+		chicklettSprite = new Sprite(chicky);
 	}
 
 
@@ -227,6 +222,20 @@ public class PlayLogic {
 
 
 	public int getMultiplier() {
-		return this.multiplier;
+		return this.baseMultiplier;
+	}
+	
+	public Sprite getChicky(float delta){
+		chicklettSprite.setColor(1, 1, 1, fadingFactor);
+		
+		chicklettSprite.setBounds(laneCoordinates[lane][0]+player.getImageWidth()/6, laneCoordinates[lane][1]+player.getImageHeight(), 30, 30);
+		if(fadingFactor>0){
+			placement = placement + 30*delta;
+			fadingFactor=Math.max(0, fadingFactor-delta);
+			chicklettSprite.setBounds(laneCoordinates[lane][0]+player.getImageWidth()/6, laneCoordinates[lane][1]+player.getImageHeight()+ placement, 30, 30);
+		}
+		chicklettSprite.setColor(1, 1, 1, fadingFactor);
+		
+		return chicklettSprite;
 	}
 }

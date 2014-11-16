@@ -45,21 +45,21 @@ public class EasyStrategy extends Strategy{
 	}
 	
 	public float getSpawnDelay(float spawnDelay) {
-		if(dinoCounter%6==0){
+		if(dinoCounter%7==0){
 			return (float) Math.max(200000000, spawnDelay-100000000);
 		}
 		return spawnDelay;
 	}
 	
 	public int getSpeedIncrease(int speedIncrease) {
-		if(dinoCounter%6==0 && speedIncrease<350)
+		if(dinoCounter%7==0 && speedIncrease<300)
 			speedIncrease+=40;
 		return speedIncrease;
 	}
 
 	public int getBaseMultiplier() {
 		
-		return dinoCounter/150 +1;
+		return dinoCounter/75 +1;
 
 	}
 

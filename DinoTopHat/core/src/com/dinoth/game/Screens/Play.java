@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.dinoth.game.DinoTopHat;
@@ -17,6 +18,8 @@ import com.dinoth.logic.PlayLogic;
 
 public class Play implements Screen{
 
+	Sprite sprite;
+	
 	
 	private Texture backGround;
 	private Texture muteImage;
@@ -24,10 +27,14 @@ public class Play implements Screen{
 	private Texture deathScreen;
 	private Texture replayScreen;
 	private Texture tutScreen;
+	private Texture tutScreen2;
 	private Texture controlSelect;
 	private Texture hitBox;
+	private Texture chicklett;
 	
-	private boolean showTut = true;
+	
+	private boolean showTut1 = true;
+	private boolean showTut2 = false;
 	
 	private BitmapFont font;
 	private CharSequence scoreStr;
@@ -54,7 +61,10 @@ public class Play implements Screen{
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		batch.draw(backGround, 0, 0, 960, 540);
+		sprite.setColor(1, 1, 1, 1f);
+		sprite.setBounds(0, 0, 960, 540);
+		sprite.draw(batch);
+		//batch.draw(backGround, 0, 0, 960, 540);
 		if(DinoMusic.isPlaying())
 			batch.draw(muteImage,10,460,70,70);
 		else
@@ -65,9 +75,11 @@ public class Play implements Screen{
 			//draw hitboxes for debugging
 			//batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
 		}
-		scoreStr = "Score: "+playGame.getScore();
+		playGame.getChicky(delta).draw(batch);
+		batch.draw(chicklett,150,460,70,70);
+		scoreStr = " "+playGame.getScore();
 		font.setScale((float)0.7);
-		font.draw(batch, scoreStr, 150, 510);
+		font.draw(batch, scoreStr, 225, 510);
 		font.draw(batch, "multiplier: "+ playGame.getMultiplier() , 500, 510 );
 		if(playGame.isDeath()) this.drawDeathScreen();
 		if(Controls.showControlSelect()){
@@ -79,15 +91,21 @@ public class Play implements Screen{
 				tutScreen = Controls.selectMode(touchPos.x, touchPos.y);
 			}
 		}
-		else if(showTut){
+		else if(showTut1){
 			batch.draw(tutScreen, 0, 0, 960, 540);
 			if(Gdx.input.justTouched()){
-				showTut = false;
+				showTut1 = false;
+				showTut2 = true;
+			}
+		}else if(showTut2){
+			batch.draw(tutScreen2, 0, 0, 960, 540);
+			if(Gdx.input.justTouched()){
+				showTut2 = false;
 			}
 		}
 		batch.end();
 		if(!playGame.isDeath()){
-			if(!showTut)
+			if(!showTut1 && !showTut2)
 				playGame.keepPlaying();
 		}else{
 			playGame.showDeathScreen();
@@ -117,6 +135,7 @@ public class Play implements Screen{
 		
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen1.png"));
+		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreen2.png"));
 		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
 		playGame.create();
 		
@@ -127,6 +146,9 @@ public class Play implements Screen{
 		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
+		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
+		
+		sprite=new Sprite(backGround);
 		
 	}
 	
@@ -159,6 +181,8 @@ public class Play implements Screen{
 		tutScreen.dispose();
 		controlSelect.dispose();
 		playGame.dispose();
+		chicklett.dispose();
+		tutScreen2.dispose();
 		
 	}
 
