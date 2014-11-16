@@ -18,6 +18,7 @@ public class Controls {
 			showControlSelect = false;
 			mode = 0;
 			return new Texture(Gdx.files.internal(paths[mode]));
+			
 		}
 		if(x > 325 && x < 620){
 			mode = 1;
