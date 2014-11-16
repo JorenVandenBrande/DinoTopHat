@@ -118,12 +118,12 @@ public class PlayLogic {
 		
 	}
 	
-	public void showDeathScreen() {
+	public int showDeathScreen() {
 		if(Gdx.input.justTouched()){
 			Vector3 touchPos = new Vector3();
 			touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 			camera.unproject(touchPos);
-			if(touchPos.x>395 &&touchPos.x<565 && touchPos.y>100 && touchPos.y<260){
+			if(touchPos.x>615 &&touchPos.x<785 && touchPos.y>100 && touchPos.y<260){
 				isDeath=false;
 				score=0;
 				lane=0;
@@ -133,8 +133,10 @@ public class PlayLogic {
 				allDinos = new Array<Entity>();
 				baseMultiplier=1;
 				easyStrat.recreate();
+			}else if(touchPos.x>175 &&touchPos.x<345 && touchPos.y>100 && touchPos.y<260){
+				return 1;
 			}
-		}
+		}return 0;
 	}
 	
 	private void spawnDino(){

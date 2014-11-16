@@ -31,6 +31,7 @@ public class Play implements Screen{
 	private Texture controlSelect;
 	private Texture hitBox;
 	private Texture chicklett;
+	private Texture menuButton;
 	
 	
 	private boolean showTut1 = true;
@@ -108,7 +109,7 @@ public class Play implements Screen{
 			if(!showTut1 && !showTut2)
 				playGame.keepPlaying();
 		}else{
-			playGame.showDeathScreen();
+			if(playGame.showDeathScreen()==1) dinoGame.setScreen(dinoGame.getMainMenu());
 		}
 		
 	}
@@ -121,7 +122,8 @@ public class Play implements Screen{
 		font.draw(batch, "score: "+ playGame.getScore(), 320, 370);
 		//font.draw(batch, "Highest score: "+ LocalIOHandler.getHighScores()[0], 320, 320);
 		font.draw(batch, "Highest score: "+	PreferencesHandler.getHighScores()[0], 320, 320);
-		batch.draw(replayScreen,395,100,170,160);
+		batch.draw(replayScreen,615,100,170,160);
+		batch.draw(menuButton,175,100,170,160);
 	}
 
 
@@ -147,7 +149,7 @@ public class Play implements Screen{
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
-		
+		menuButton = new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		sprite=new Sprite(backGround);
 		
 	}
