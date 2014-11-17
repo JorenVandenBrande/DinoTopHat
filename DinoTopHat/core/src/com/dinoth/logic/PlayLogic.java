@@ -51,7 +51,10 @@ public class PlayLogic {
 	private Sound death;
 	private Sound eat;
 	
-	public PlayLogic(OrthographicCamera camera){
+	private IControls controls;
+	
+	public PlayLogic(OrthographicCamera camera, IControls controls){
+		this.controls = controls;
 		this.camera = camera;
 		this.easyStrat = new EasyStrategy();
 	}
@@ -68,7 +71,7 @@ public class PlayLogic {
 //			else if(touchPos.x < 480) lane = Math.min(3, lane+1);
 //			else lane = Math.max(0, lane-1);
 			else{
-				lane = Math.max(0, Math.min(3, lane + Controls.clickEvent(touchPos.x, touchPos.y)));
+				lane = Math.max(0, Math.min(3, lane + controls.clickEvent(touchPos.x, touchPos.y)));
 			}
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.RIGHT) || Gdx.input.isKeyJustPressed(Keys.DOWN)) lane = Math.max(0, lane-1);

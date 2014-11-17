@@ -1,18 +1,25 @@
 package com.dinoth.game;
 
-import com.dinoth.game.Screens.MainMenu;
-import com.dinoth.game.common.DinoMusic;
-import com.dinoth.game.common.LocalIOHandler;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.dinoth.game.Screens.MainMenu;
+import com.dinoth.game.common.DinoMusic;
+import com.dinoth.game.common.LocalIOHandler;
+import com.dinoth.logic.IControls;
 
 public class DinoTopHat extends Game {
 	
 	public static final String TITLE = "DinoTopHat";
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
+	
+	public IControls controls;
+	
+	public DinoTopHat(IControls cont){
+		this.controls = cont;
+	}
 	
 	private MainMenu menu;
 	@Override

@@ -12,7 +12,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
-import com.dinoth.logic.Controls;
 import com.dinoth.logic.Entity;
 import com.dinoth.logic.PlayLogic;
 
@@ -53,7 +52,7 @@ public class Play implements Screen{
 		this.dinoGame=dinoGame;
 		batch=dinoGame.getBatch();
 		camera=dinoGame.getCamera();
-		playGame = new PlayLogic(camera);
+		playGame = new PlayLogic(camera, dinoGame.controls);
 	}
 
 	@Override
@@ -87,13 +86,13 @@ public class Play implements Screen{
 		batch.draw(progressBorder, 500, 420, 347,44);
 		batch.draw(progressFilling, 504, 420, playGame.getMultiplierProgress()*339, 44);
 		if(playGame.isDeath()) this.drawDeathScreen();
-		if(Controls.showControlSelect()){
+		if(dinoGame.controls.showControlSelect()){
 			batch.draw(controlSelect, 0, 0, 960, 540);
 			if(Gdx.input.justTouched()){
 				Vector3 touchPos = new Vector3();
 				touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
 				camera.unproject(touchPos);
-				tutScreen = Controls.selectMode(touchPos.x, touchPos.y);
+				tutScreen = dinoGame.controls.selectMode(touchPos.x, touchPos.y);
 			}
 		}
 		else if(showTut1){
@@ -115,7 +114,7 @@ public class Play implements Screen{
 		}else{
 			if(playGame.showDeathScreen()==1){
 				dinoGame.setScreen(dinoGame.getMainMenu());
-				Controls.resetControlSelect();
+				dinoGame.controls.resetControlSelect();
 				showTut1 = true;
 			}
 		}
@@ -144,7 +143,7 @@ public class Play implements Screen{
 	public void show() {
 		
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
-		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreen1.png"));
+		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreenpc.png"));
 		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
 		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
 		playGame.create();

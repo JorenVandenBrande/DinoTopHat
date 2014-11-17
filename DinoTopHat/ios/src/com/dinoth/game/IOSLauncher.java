@@ -6,12 +6,13 @@ import org.robovm.apple.uikit.UIApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplication;
 import com.badlogic.gdx.backends.iosrobovm.IOSApplicationConfiguration;
 import com.dinoth.game.DinoTopHat;
+import com.dinoth.logic.AndroidControls;
 
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new DinoTopHat(), config);
+        return new IOSApplication(new DinoTopHat(new AndroidControls()), config);
     }
 
     public static void main(String[] argv) {
