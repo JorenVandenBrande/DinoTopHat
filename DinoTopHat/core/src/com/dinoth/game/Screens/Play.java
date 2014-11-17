@@ -2,7 +2,6 @@ package com.dinoth.game.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -31,6 +30,8 @@ public class Play implements Screen{
 	private Texture tutScreen2;
 	private Texture controlSelect;
 	private Texture hitBox;
+	private Texture progressBorder;
+	private Texture progressFilling;
 	private Texture chicklett;
 	private Texture menuButton;
 	
@@ -83,6 +84,8 @@ public class Play implements Screen{
 		font.setScale((float)0.7);
 		font.draw(batch, scoreStr, 225, 510);
 		font.draw(batch, "multiplier: "+ playGame.getMultiplier() , 500, 510 );
+		batch.draw(progressBorder, 500, 420, 347,44);
+		batch.draw(progressFilling, 504, 420, playGame.getMultiplierProgress()*339, 44);
 		if(playGame.isDeath()) this.drawDeathScreen();
 		if(Controls.showControlSelect()){
 			batch.draw(controlSelect, 0, 0, 960, 540);
@@ -155,6 +158,8 @@ public class Play implements Screen{
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
 		menuButton = new Texture(Gdx.files.internal("PlayScreen/dinomenu.png"));
+		progressBorder = new Texture(Gdx.files.internal("PlayScreen/progressbarborder.png"));
+		progressFilling = new Texture(Gdx.files.internal("PlayScreen/progressbarfilling.png"));
 		sprite=new Sprite(backGround);
 		
 	}
@@ -190,7 +195,8 @@ public class Play implements Screen{
 		playGame.dispose();
 		chicklett.dispose();
 		tutScreen2.dispose();
-		
+		progressBorder.dispose();
+		progressFilling.dispose();
 	}
 
 }

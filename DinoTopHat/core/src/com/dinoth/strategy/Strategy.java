@@ -12,6 +12,10 @@ public abstract class Strategy {
 	
 	protected int dinoCounter;
 	
+	public int getDinoCounter(){
+		return this.dinoCounter;
+	}
+	
 	public abstract  Entity spawnDino();
 	
 	public abstract float getSpawnDelay(float spawnDelay);

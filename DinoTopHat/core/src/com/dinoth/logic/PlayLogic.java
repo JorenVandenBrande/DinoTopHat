@@ -227,6 +227,10 @@ public class PlayLogic {
 		return this.baseMultiplier;
 	}
 	
+	public float getMultiplierProgress(){
+		return ((easyStrat.getDinoCounter()%75)/75.0f);
+	}
+	
 	public Sprite getChicky(float delta){
 		chicklettSprite.setColor(1, 1, 1, fadingFactor);
 		
