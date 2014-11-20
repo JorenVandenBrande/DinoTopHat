@@ -16,9 +16,12 @@ public class DinoTopHat extends Game {
 	private SpriteBatch batch;
 	
 	public IControls controls;
+	private ActionResolver ar;
 	
-	public DinoTopHat(IControls cont){
+	public DinoTopHat(IControls cont, ActionResolver ar){
 		this.controls = cont;
+		this.ar = ar;
+		ar.setTrackerScreenName("com.dinoth.game.Screens.Play");
 	}
 	
 	private MainMenu menu;

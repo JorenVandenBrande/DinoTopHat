@@ -12,7 +12,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new DinoTopHat(new AndroidControls()), config);
+        return new IOSApplication(new DinoTopHat(new AndroidControls(), new DummyActionResolver()), config);
     }
 
     public static void main(String[] argv) {

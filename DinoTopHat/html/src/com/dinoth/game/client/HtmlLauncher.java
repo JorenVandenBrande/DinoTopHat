@@ -4,6 +4,7 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import com.dinoth.game.DinoTopHat;
+import com.dinoth.game.DummyActionResolver;
 import com.dinoth.logic.PcControls;
 
 public class HtmlLauncher extends GwtApplication {
@@ -15,6 +16,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new DinoTopHat(new PcControls());
+                return new DinoTopHat(new PcControls(), new DummyActionResolver());
         }
 }
