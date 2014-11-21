@@ -16,6 +16,6 @@ public class HtmlLauncher extends GwtApplication {
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new DinoTopHat(new PcControls(), new DummyActionResolver());
+                return new DinoTopHat(new PcControls(), new DummyActionResolver(), false);
         }
 }

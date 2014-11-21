@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		config.width = 960;
 		config.height = 540;
 		config.title = "Dino Top Hat";
-		new LwjglApplication(new DinoTopHat(new PcControls(), new DummyActionResolver()), config);
+		new LwjglApplication(new DinoTopHat(new PcControls(), new DummyActionResolver(), false), config);
 	}
 }

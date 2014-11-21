@@ -52,7 +52,7 @@ public class Play implements Screen{
 		this.dinoGame=dinoGame;
 		batch=dinoGame.getBatch();
 		camera=dinoGame.getCamera();
-		playGame = new PlayLogic(camera, dinoGame.controls);
+		playGame = new PlayLogic(camera, dinoGame.controls, dinoGame);
 	}
 
 	@Override

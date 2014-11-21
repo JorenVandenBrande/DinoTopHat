@@ -14,11 +14,13 @@ public class DinoTopHat extends Game {
 	public static final String TITLE = "DinoTopHat";
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
+	public boolean useSwarm;
 	
 	public IControls controls;
 	private ActionResolver ar;
 	
-	public DinoTopHat(IControls cont, ActionResolver ar){
+	public DinoTopHat(IControls cont, ActionResolver ar, boolean useSwarm){
+		this.useSwarm = useSwarm;
 		this.controls = cont;
 		this.ar = ar;
 		ar.setTrackerScreenName("com.dinoth.game.Screens.Play");
