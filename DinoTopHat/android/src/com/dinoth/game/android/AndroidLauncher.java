@@ -2,8 +2,10 @@ package com.dinoth.game.android;
 
 import android.os.Bundle;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.badlogic.gdx.input.GestureDetector;
 import com.dinoth.game.ActionResolver;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.logic.AndroidControls;
@@ -25,7 +27,9 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		myApplication = (DinoApplication) getApplication();
 		tracker = myApplication.getTracker(DinoApplication.TrackerName.APP_TRACKER);
 		globalTracker = myApplication.getTracker(DinoApplication.TrackerName.GLOBAL_TRACKER);	
-		initialize(new DinoTopHat(new AndroidControls(), this), config);
+		AndroidControls Acont =new AndroidControls();
+		initialize(new DinoTopHat(Acont, this), config);
+		Gdx.input.setInputProcessor(new GestureDetector(Acont));
 	}
 	
 	@Override
