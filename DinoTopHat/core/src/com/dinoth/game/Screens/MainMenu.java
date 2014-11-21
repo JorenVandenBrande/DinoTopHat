@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
+import com.swarmconnect.Swarm;
 
 public class MainMenu implements Screen{
 	
@@ -66,7 +67,10 @@ public class MainMenu implements Screen{
 				dinoGame.setScreen(playScreen);
 			}
 			if(touchPos.x > 285 && touchPos.x<455 && touchPos.y>20 && touchPos.y<180){
-				dinoGame.setScreen(highscoresScreen);
+				if(dinoGame.useSwarm)
+					Swarm.showLeaderboards();
+				else
+					dinoGame.setScreen(highscoresScreen);
 			}
 			if(touchPos.x > 500 && touchPos.x<670 && touchPos.y>20 && touchPos.y<180){
 				DinoMusic.pause();
