@@ -9,6 +9,7 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.dinoth.game.ActionResolver;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.logic.AndroidControls;
+import com.dinoth.logic.SimpleDirectionGestureDetector;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
@@ -29,7 +30,28 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		globalTracker = myApplication.getTracker(DinoApplication.TrackerName.GLOBAL_TRACKER);	
 		AndroidControls Acont =new AndroidControls();
 		initialize(new DinoTopHat(Acont, this), config);
-		Gdx.input.setInputProcessor(new GestureDetector(Acont));
+		Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
+
+			@Override
+			public void onUp() {
+
+			}
+
+			@Override
+			public void onRight() {
+
+			}
+
+			@Override
+			public void onLeft() {
+
+			}
+
+			@Override
+			public void onDown() {
+
+			}
+			}));
 	}
 	
 	@Override

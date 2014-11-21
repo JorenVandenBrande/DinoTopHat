@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.input.GestureDetector.GestureListener;
 import com.badlogic.gdx.math.Vector2;
+import com.dinoth.logic.SimpleDirectionGestureDetector.DirectionListener;
 
-public class AndroidControls implements IControls,GestureListener{
+public class AndroidControls implements IControls,DirectionListener{
 	
 	private boolean showControlSelect = true;
 	
@@ -15,23 +16,37 @@ public class AndroidControls implements IControls,GestureListener{
 	
 	@Override
 	public Texture selectMode(float x, float y){
-		if(y > 365 || y < 175)
-			return null;
-		if(x > 20 && x < 315){
+		
+		if(x > 20 && x < 315 && y <270){
 			showControlSelect = false;
 			mode = 0;
 			return new Texture(Gdx.files.internal(paths[mode]));
 			
 		}
-		if(x > 325 && x < 620){
+		if(x > 325 && x < 620 && y <270){
 			mode = 1;
 			showControlSelect = false;
 			return new Texture(Gdx.files.internal(paths[mode]));
 		}
-		if(x > 630 && x < 925){
+		if(x > 630 && x < 925 && y<270){
 			mode = 2;
 			showControlSelect = false;
 			return new Texture(Gdx.files.internal(paths[mode]));
+		}if(x > 20 && x < 315 && y >270){
+			showControlSelect = false;
+			mode = 3;
+			return new Texture(Gdx.files.internal(paths[mode]));
+			
+		}if(x > 325 && x < 620 && y >270){
+			showControlSelect = false;
+			mode = 4;
+			return new Texture(Gdx.files.internal(paths[mode]));
+			
+		}if(x > 630 && x < 925 && y >270){
+			showControlSelect = false;
+			mode = 5;
+			return new Texture(Gdx.files.internal(paths[mode]));
+			
 		}
 		return null;
 	}
@@ -67,52 +82,34 @@ public class AndroidControls implements IControls,GestureListener{
 	}
 
 	@Override
-	public boolean touchDown(float x, float y, int pointer, int button) {
+	public void onLeft() {
 		// TODO Auto-generated method stub
-		return false;
+		if(mode==3){
+			mode =2;
+		}
 	}
 
 	@Override
-	public boolean tap(float x, float y, int count, int button) {
+	public void onRight() {
 		// TODO Auto-generated method stub
-		return false;
+		if(mode==3){
+			mode=1;
+		}
 	}
 
 	@Override
-	public boolean longPress(float x, float y) {
+	public void onUp() {
 		// TODO Auto-generated method stub
-		return false;
+		if(mode==1){
+			mode = 3;
+		}
 	}
 
 	@Override
-	public boolean fling(float velocityX, float velocityY, int button) {
+	public void onDown() {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
-	@Override
-	public boolean pan(float x, float y, float deltaX, float deltaY) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean panStop(float x, float y, int pointer, int button) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean zoom(float initialDistance, float distance) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean pinch(Vector2 initialPointer1, Vector2 initialPointer2,
-			Vector2 pointer1, Vector2 pointer2) {
-		// TODO Auto-generated method stub
-		return false;
-	}
 	
 }
