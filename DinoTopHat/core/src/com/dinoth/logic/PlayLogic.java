@@ -12,10 +12,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
 import com.dinoth.strategy.EasyStrategy;
-
+import com.swarmconnect.SwarmLeaderboard;
 
 public class PlayLogic {
 
@@ -52,8 +53,10 @@ public class PlayLogic {
 	private Sound eat;
 	
 	private IControls controls;
+	private DinoTopHat dinoGame;
 	
-	public PlayLogic(OrthographicCamera camera, IControls controls){
+	public PlayLogic(OrthographicCamera camera, IControls controls, DinoTopHat dinoGame){
+		this.dinoGame = dinoGame;
 		this.controls = controls;
 		this.camera = camera;
 		this.easyStrat = new EasyStrategy();
@@ -112,6 +115,8 @@ public class PlayLogic {
 				spawnDelay = 1000000000;
 				//LocalIOHandler.postHighScore(score);
 				PreferencesHandler.postHighScore(score);
+				if(dinoGame.useSwarm)
+					SwarmLeaderboard.submitScore(18347, (float) score);
 				isDeath=true;
 				fadingFactor=0.0f;
 				placement=0;

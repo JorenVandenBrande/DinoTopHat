@@ -12,6 +12,7 @@ import com.dinoth.logic.AndroidControls;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.analytics.GoogleAnalytics;
+import com.swarmconnect.Swarm;
 
 public class AndroidLauncher extends AndroidApplication implements ActionResolver {
 	
@@ -28,8 +29,25 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		tracker = myApplication.getTracker(DinoApplication.TrackerName.APP_TRACKER);
 		globalTracker = myApplication.getTracker(DinoApplication.TrackerName.GLOBAL_TRACKER);	
 		AndroidControls Acont =new AndroidControls();
-		initialize(new DinoTopHat(Acont, this), config);
+		initialize(new DinoTopHat(Acont, this, true), config);
 		Gdx.input.setInputProcessor(new GestureDetector(Acont));
+		// Add this method call
+	    Swarm.setActive(this);
+	}
+
+	// Add everything below here too
+	public void onResume() {
+	    super.onResume();
+	    Swarm.setActive(this);
+	    
+	    // Replace MY_APP_ID with your App ID from the Swarm Admin Panel
+	    // Replace MY_APP_KEY with your string App Key from the Swarm Admin Panel
+	    Swarm.init(this, 14415, "813cab32e79ff2e0a57714bf8d4305c4");
+	}
+
+	public void onPause() {
+	    super.onPause();
+	    Swarm.setInactive(this);
 	}
 	
 	@Override
