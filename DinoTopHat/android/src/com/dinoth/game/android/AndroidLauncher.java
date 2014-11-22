@@ -31,28 +31,8 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		globalTracker = myApplication.getTracker(DinoApplication.TrackerName.GLOBAL_TRACKER);	
 		AndroidControls Acont =new AndroidControls();
 		initialize(new DinoTopHat(Acont, this, true), config);
-		Gdx.input.setInputProcessor(new SimpleDirectionGestureDetector(new SimpleDirectionGestureDetector.DirectionListener() {
-
-			@Override
-			public void onUp() {
-
-			}
-
-			@Override
-			public void onRight() {
-
-			}
-
-			@Override
-			public void onLeft() {
-
-			}
-
-			@Override
-			public void onDown() {
-
-			}
-			}));
+		
+		Gdx.input.setInputProcessor(Acont);
 		// Add this method call
 	    Swarm.setActive(this);
 	}

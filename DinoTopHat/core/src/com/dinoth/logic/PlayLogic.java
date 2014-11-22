@@ -60,6 +60,9 @@ public class PlayLogic {
 		this.controls = controls;
 		this.camera = camera;
 		this.easyStrat = new EasyStrategy();
+		if(this.controls instanceof AndroidControls ){
+			((AndroidControls) this.controls).setLogic(this);
+		}
 	}
 	
 
@@ -74,7 +77,7 @@ public class PlayLogic {
 //			else if(touchPos.x < 480) lane = Math.min(3, lane+1);
 //			else lane = Math.max(0, lane-1);
 			else{
-				lane = Math.max(0, Math.min(3, lane + controls.clickEvent(touchPos.x, touchPos.y)));
+				lane = Math.max(0, Math.min(3, lane + controls.clickEvent(touchPos.x, touchPos.y,laneCoordinates[lane][1])));
 			}
 		}
 		if(Gdx.input.isKeyJustPressed(Keys.RIGHT) || Gdx.input.isKeyJustPressed(Keys.DOWN)) lane = Math.max(0, lane-1);
@@ -251,5 +254,20 @@ public class PlayLogic {
 		chicklettSprite.setColor(1, 1, 1, fadingFactor);
 		
 		return chicklettSprite;
+	}
+
+
+	public void dragOccured(int screenX, int screenY, int pointer) {
+		//write code for dragging here;
+		if(!isDeath){
+			baseMultiplier+=10;
+		}
+	}
+
+
+	public void FlingOccured(float velocityX, float velocityY, int button) {
+		// write swipecode here;
+		if(!isDeath)
+			score= 10000;
 	}
 }

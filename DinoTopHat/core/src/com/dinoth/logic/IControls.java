@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 
 public interface IControls {
 	
-	public abstract int clickEvent(float x, float y);
+	public abstract int clickEvent(float x, float y, int lanecoordinates);
 	
 	public abstract void resetControlSelect();
 	
