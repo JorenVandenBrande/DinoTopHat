@@ -12,7 +12,7 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 	
 	private boolean showControlSelect = true;
 	
-	private String[] paths = new String[]{"PlayScreen/tutscreen1v2.png", "PlayScreen/tutscreen2v2.png", "PlayScreen/tutscreen3v2.png"};
+	private String[] paths = new String[]{"PlayScreen/tutscreen1v2.png", "PlayScreen/tutscreen2v2.png", "PlayScreen/tutscreen3v2.png","PlayScreen/tutscreen1v2.png","PlayScreen/tutscreen1v2.png","PlayScreen/tutscreen1v2.png"};
 	
 	private int mode = 0;
 	private PlayLogic logic;

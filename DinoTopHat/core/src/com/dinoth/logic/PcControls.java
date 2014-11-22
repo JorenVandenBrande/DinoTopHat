@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 public class PcControls implements IControls{
 
 	@Override
-	public int clickEvent(float x, float y) {
+	public int clickEvent(float x, float y, int yCoord) {
 		if(x < 480)
 			return 1;
 		return -1;
