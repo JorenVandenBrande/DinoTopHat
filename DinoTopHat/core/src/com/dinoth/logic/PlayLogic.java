@@ -265,38 +265,40 @@ public class PlayLogic {
 		if(isDeath) return;
 		if(firstY == -1) return;
 		int diff = screenY - firstY;
-		if(Math.abs(diff)<=75) return;
+		if(Math.abs(diff)<=75){
+			lane = Math.max(0, Math.min(3, startLane ));
+		}
 		if(diff>75 && diff<=150){
-			if(startLane+1 != lane){
-				lane = Math.max(0, Math.min(3, startLane+1 ));
+			if(startLane-1 != lane){
+				lane = Math.max(0, Math.min(3, startLane-1 ));
 			}
 			return;
 		}
 		if(diff>150 && diff<=225){
-			if(startLane+2 != lane){
-				lane = Math.max(0, Math.min(3, startLane+2 ));
+			if(startLane-2 != lane){
+				lane = Math.max(0, Math.min(3, startLane-2 ));
 			}
 			return;
 		}
 		if(diff>225){
-			if(startLane+3 != lane){
-				lane = Math.max(0, Math.min(3, startLane+3 ));
+			if(startLane-3 != lane){
+				lane = Math.max(0, Math.min(3, startLane-3 ));
 			}
 			return;
 		}
 		if(diff<-75 && diff>=-150){
-			if(startLane-1 != lane){
-				lane = Math.max(0, Math.min(3, startLane-1 ));
+			if(startLane+1 != lane){
+				lane = Math.max(0, Math.min(3, startLane+1 ));
 			}
 		}
 		if(diff<-150 && diff>=-225){
-			if(startLane-2 != lane){
-				lane = Math.max(0, Math.min(3, startLane-2 ));
+			if(startLane+2 != lane){
+				lane = Math.max(0, Math.min(3, startLane+2 ));
 			}
 		}
 		if(diff<225){
-			if(startLane-3 != lane){
-				lane = Math.max(0, Math.min(3, startLane-3 ));
+			if(startLane+3 != lane){
+				lane = Math.max(0, Math.min(3, startLane+3 ));
 			}
 		}
 		
@@ -315,9 +317,9 @@ public class PlayLogic {
 			}
 		}else{
 			if(velocityY>0){
-				lane = Math.max(0, Math.min(3, lane +1));
+				lane = Math.max(0, Math.min(3, lane -1));
 			}else{                                  
-				lane = Math.max(0, Math.min(3, lane -1 ));	
+				lane = Math.max(0, Math.min(3, lane +1 ));	
 			}
 		}
 	}
