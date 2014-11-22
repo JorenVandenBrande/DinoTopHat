@@ -262,6 +262,7 @@ public class PlayLogic {
 
 	public void dragOccured(int screenX, int screenY, int pointer) {
 		//write code for dragging here;
+		if(isDeath) return;
 		if(firstY == -1) return;
 		int diff = screenY - firstY;
 		if(Math.abs(diff)<=75) return;
@@ -305,6 +306,7 @@ public class PlayLogic {
 
 	public void FlingOccured(float velocityX, float velocityY, int button) {
 		// write swipecode here;
+		if(isDeath) return;
 		if(Math.abs(velocityX)>Math.abs(velocityY)){
 			if(velocityX>0){
 					
