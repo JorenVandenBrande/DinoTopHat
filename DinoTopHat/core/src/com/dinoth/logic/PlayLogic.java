@@ -35,7 +35,7 @@ public class PlayLogic {
 	
 	private Array<Entity> allDinos;
 	public static final int[][] laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};
-	private int lane;
+	public int lane;
 	private long lastDinoTime;
 	private int score = 0;
 	private int baseMultiplier;
@@ -256,18 +256,67 @@ public class PlayLogic {
 		return chicklettSprite;
 	}
 
+	public int firstY=-1;
+	
+	public int startLane= 0;
 
 	public void dragOccured(int screenX, int screenY, int pointer) {
 		//write code for dragging here;
-		if(!isDeath){
-			baseMultiplier+=10;
+		if(firstY == -1) return;
+		int diff = screenY - firstY;
+		if(Math.abs(diff)<=75) return;
+		if(diff>75 && diff<=150){
+			if(startLane+1 != lane){
+				lane = Math.max(0, Math.min(3, startLane+1 ));
+			}
+			return;
 		}
+		if(diff>150 && diff<=225){
+			if(startLane+2 != lane){
+				lane = Math.max(0, Math.min(3, startLane+2 ));
+			}
+			return;
+		}
+		if(diff>225){
+			if(startLane+3 != lane){
+				lane = Math.max(0, Math.min(3, startLane+3 ));
+			}
+			return;
+		}
+		if(diff<-75 && diff>=-150){
+			if(startLane-1 != lane){
+				lane = Math.max(0, Math.min(3, startLane-1 ));
+			}
+		}
+		if(diff<-150 && diff>=-225){
+			if(startLane-2 != lane){
+				lane = Math.max(0, Math.min(3, startLane-2 ));
+			}
+		}
+		if(diff<225){
+			if(startLane-3 != lane){
+				lane = Math.max(0, Math.min(3, startLane-3 ));
+			}
+		}
+		
+		
 	}
 
 
 	public void FlingOccured(float velocityX, float velocityY, int button) {
 		// write swipecode here;
-		if(!isDeath)
-			score= 10000;
+		if(Math.abs(velocityX)>Math.abs(velocityY)){
+			if(velocityX>0){
+					
+			}else{
+					
+			}
+		}else{
+			if(velocityY>0){
+				lane = Math.max(0, Math.min(3, lane +1));
+			}else{                                  
+				lane = Math.max(0, Math.min(3, lane -1 ));	
+			}
+		}
 	}
 }

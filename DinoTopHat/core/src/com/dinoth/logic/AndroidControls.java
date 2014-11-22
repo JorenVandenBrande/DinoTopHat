@@ -111,13 +111,19 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		if(mode == 3){
+			logic.firstY= screenY;
+			logic.startLane = logic.lane;
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		if(mode == 3){
+			logic.firstY=-1;
+		}
 		return false;
 	}
 
