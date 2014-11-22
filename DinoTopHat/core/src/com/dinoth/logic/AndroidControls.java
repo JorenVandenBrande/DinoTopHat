@@ -22,6 +22,30 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 	
 	@Override
 	public Texture selectMode(float x, float y){
+		if(y > 365 || y < 175)
+			return null;
+		if(x > 20 && x < 315){
+			showControlSelect = false;
+			mode = 0;
+			return new Texture(Gdx.files.internal(paths[mode]));
+			
+		}
+		if(x > 325 && x < 620){
+			mode = 1;
+			showControlSelect = false;
+			return new Texture(Gdx.files.internal(paths[mode]));
+		}
+		if(x > 630 && x < 925){
+			mode = 2;
+			showControlSelect = false;
+			return new Texture(Gdx.files.internal(paths[mode]));
+		}
+		return null;
+	}
+	
+	/* UNCOMMENT THIS FOR OTHER CONTROLS TESTING
+	@Override
+	public Texture selectMode(float x, float y){
 		
 		if(x > 20 && x < 315 && y >220){
 			showControlSelect = false;
@@ -56,6 +80,7 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 		}
 		return null;
 	}
+	*/
 	
 	@Override
 	public boolean showControlSelect(){
