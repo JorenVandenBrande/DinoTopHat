@@ -3,6 +3,7 @@ package com.dinoth.game.android;
 import android.os.Bundle;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.input.GestureDetector;
@@ -31,8 +32,10 @@ public class AndroidLauncher extends AndroidApplication implements ActionResolve
 		globalTracker = myApplication.getTracker(DinoApplication.TrackerName.GLOBAL_TRACKER);	
 		AndroidControls Acont =new AndroidControls();
 		initialize(new DinoTopHat(Acont, this, true), config);
-		
-		Gdx.input.setInputProcessor(Acont);
+		InputMultiplexer imp = new InputMultiplexer();
+		imp.addProcessor(Acont);
+		imp.addProcessor(new GestureDetector(Acont));
+		Gdx.input.setInputProcessor(imp);
 		// Add this method call
 	    Swarm.setActive(this);
 	}
