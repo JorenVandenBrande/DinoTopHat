@@ -259,8 +259,18 @@ public class PlayLogic {
 	public int firstY=-1;
 	
 	public int startLane= 0;
+	
+	public void dragOccured(int screenX, int screenY, int pointer){
+		if(isDeath) return;
+		if(firstY == -1) return;
+		int diff = firstY - screenY;
+		lane = Math.max(0, Math.min(lane+(diff/90), 3));
+		if(diff/90 != 0)
+			firstY = screenY;
+		
+	}
 
-	public void dragOccured(int screenX, int screenY, int pointer) {
+	public void dragOccured2(int screenX, int screenY, int pointer) {
 		//write code for dragging here;
 		if(isDeath) return;
 		if(firstY == -1) return;

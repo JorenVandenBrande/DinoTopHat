@@ -145,8 +145,8 @@ public class Play implements Screen{
 		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreenpc.png"));
 		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
-		//controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect2.png"));
-		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
+		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect2.png"));
+		//controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect.png"));
 		playGame.create();
 		
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));

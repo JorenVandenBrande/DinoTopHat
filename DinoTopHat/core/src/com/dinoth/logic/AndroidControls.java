@@ -19,7 +19,8 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 	public void setLogic(PlayLogic logic){
 		this.logic = logic;
 	}
-	
+	 
+	/*
 	@Override
 	public Texture selectMode(float x, float y){
 		if(y > 365 || y < 175)
@@ -42,8 +43,9 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 		}
 		return null;
 	}
+	*/
 	
-	/* UNCOMMENT THIS FOR OTHER CONTROLS TESTING
+	// UNCOMMENT THIS FOR OTHER CONTROLS TESTING
 	@Override
 	public Texture selectMode(float x, float y){
 		
@@ -80,7 +82,7 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 		}
 		return null;
 	}
-	*/
+	//*/
 	
 	@Override
 	public boolean showControlSelect(){
@@ -109,6 +111,8 @@ public class AndroidControls extends GestureAdapter implements IControls,InputPr
 				return 1;
 			return -1;
 		}if(mode == 5){
+			if(Math.abs(y-yCoord) < 30)
+				return 0;
 			if(y>yCoord)
 				return 1;
 			return -1;
