@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
-import com.swarmconnect.Swarm;
 
 public class MainMenu implements Screen{
 	
@@ -19,6 +18,7 @@ public class MainMenu implements Screen{
 	private Texture highScoreImage;
 	private Texture muteImage;
 	private Texture mutedIm;
+	private Texture achievementsImage;
 	
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
@@ -50,11 +50,21 @@ public class MainMenu implements Screen{
 		batch.draw(backgroundImage, 0, 0,960, 540);
 		//batch.draw(titleImage,300,400,200,50);
 		font.draw(batch, str, 240, 520);
-		batch.draw(highScoreImage, 285, 20,170,160);
-		if(!DinoMusic.isPlaying())
-			batch.draw(mutedIm,500,20,170,160);
-		else
-			batch.draw(muteImage,500,20,170,160);
+		if(dinoGame.isAndroid){
+			batch.draw(highScoreImage, 180, 20,170,160);
+			batch.draw(achievementsImage, 395, 20, 170,160);
+			if(!DinoMusic.isPlaying())
+				batch.draw(mutedIm,610,20,170,160);
+			else
+				batch.draw(muteImage,610,20,170,160);
+		}
+		else{
+			batch.draw(highScoreImage, 285, 20,170,160);
+			if(!DinoMusic.isPlaying())
+				batch.draw(mutedIm,500,20,170,160);
+			else
+				batch.draw(muteImage,500,20,170,160);
+		}
 		batch.draw(playImage,335,200,290,255);
 		batch.end();
 		
@@ -66,14 +76,34 @@ public class MainMenu implements Screen{
 			if(touchPos.x > 335 && touchPos.x<625 && touchPos.y>200 && touchPos.y<455){
 				dinoGame.setScreen(playScreen);
 			}
-			if(touchPos.x > 285 && touchPos.x<455 && touchPos.y>20 && touchPos.y<180){
-				if(dinoGame.useSwarm)
-					Swarm.showLeaderboards();
-				else
-					dinoGame.setScreen(highscoresScreen);
+//			if(dinoGame.isAndroid){
+//				batch.draw(highScoreImage, 180, 20,170,160);
+//				batch.draw(achievementsImage, 395, 20, 170,160);
+//				if(!DinoMusic.isPlaying())
+//					batch.draw(mutedIm,610,20,170,160);
+//				else
+//					batch.draw(muteImage,610,20,170,160);
+//			}
+			if(dinoGame.isAndroid){
+				if(touchPos.x > 180 && touchPos.x<350 && touchPos.y>20 && touchPos.y<180){
+					if (dinoGame.ar.getSignedInGPGS()) dinoGame.ar.getLeaderboardGPGS();
+					else dinoGame.ar.loginGPGS();
+				}
+				else if(touchPos.x > 395 && touchPos.x<565 && touchPos.y>20 && touchPos.y<180){
+					if (dinoGame.ar.getSignedInGPGS()) dinoGame.ar.getAchievementsGPGS();
+					else dinoGame.ar.loginGPGS();
+				}
+				else if(touchPos.x > 610 && touchPos.x<780 && touchPos.y>20 && touchPos.y<180){
+					DinoMusic.pause();
+				}
 			}
-			if(touchPos.x > 500 && touchPos.x<670 && touchPos.y>20 && touchPos.y<180){
-				DinoMusic.pause();
+			else{
+				if(touchPos.x > 285 && touchPos.x<455 && touchPos.y>20 && touchPos.y<180){
+					dinoGame.setScreen(highscoresScreen);
+				}
+				if(touchPos.x > 500 && touchPos.x<670 && touchPos.y>20 && touchPos.y<180){
+					DinoMusic.pause();
+				}
 			}
 		}
 	}
@@ -91,6 +121,7 @@ public class MainMenu implements Screen{
 		muteImage = new Texture(Gdx.files.internal("MainMenu/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("MainMenu/muted.png"));
 		highScoreImage=new Texture(Gdx.files.internal("MainMenu/dinohigh.png"));
+		achievementsImage=new Texture(Gdx.files.internal("MainMenu/dinoach.png"));
 		font = new BitmapFont(Gdx.files.internal("fonts/font.fnt"));
 		
 		//TODO: initialise other images and rectangles
@@ -122,7 +153,7 @@ public class MainMenu implements Screen{
 		highScoreImage.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
-		
+		achievementsImage.dispose();
 	}
 
 }

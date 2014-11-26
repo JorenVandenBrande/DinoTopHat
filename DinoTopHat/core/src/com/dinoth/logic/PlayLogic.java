@@ -16,7 +16,6 @@ import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
 import com.dinoth.strategy.EasyStrategy;
-import com.swarmconnect.SwarmLeaderboard;
 
 public class PlayLogic {
 
@@ -118,8 +117,11 @@ public class PlayLogic {
 				spawnDelay = 1000000000;
 				//LocalIOHandler.postHighScore(score);
 				PreferencesHandler.postHighScore(score);
-				if(dinoGame.useSwarm)
-					SwarmLeaderboard.submitScore(18347, (float) score);
+				if(dinoGame.isAndroid){
+					dinoGame.ar.submitScoreGPGS(score);
+					//dinoGame.ar.unlockAchievementGPGS("CgklidrglpgbEAIQAg");
+					dinoGame.ar.unlockAchievementGPGS("CgklidrglpgbEAIQAw");
+				}
 				isDeath=true;
 				fadingFactor=0.0f;
 				placement=0;
