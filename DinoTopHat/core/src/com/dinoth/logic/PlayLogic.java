@@ -37,6 +37,9 @@ public class PlayLogic {
 	public int lane;
 	private long lastDinoTime;
 	private int score = 0;
+	private int kills = 0;
+	private boolean herbivoreAchBlocked = false;
+	private boolean streakerAchBlocked = false;
 	private int baseMultiplier;
 //	private int multiplier;
 //	private int n;
@@ -93,13 +96,18 @@ public class PlayLogic {
 			Entity dino = iter.next();
 			dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed()+speedIncrease)*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
 			if(dino.getHitBox().x + 100 < 0 && dino.isGood()){
-				
-				
+				if(score < 42){
+					streakerAchBlocked = true;
+				}
 				iter.remove();
 			}
 			if(dino.getHitBox().overlaps(player.getHitBox())&& dino.isGood()){
 				if(DinoMusic.isPlaying())
 					eat.setVolume(eat.play(), 1);
+				if(baseMultiplier < 3){
+					herbivoreAchBlocked = true;
+				}
+				kills++;
 				score+=1*baseMultiplier;
 				fadingFactor=1.0f;
 				placement=0;
@@ -117,10 +125,28 @@ public class PlayLogic {
 				spawnDelay = 1000000000;
 				//LocalIOHandler.postHighScore(score);
 				PreferencesHandler.postHighScore(score);
+				PreferencesHandler.gamesPlayedIncr();
+				PreferencesHandler.LifetimeKillsIncr(kills);
+				PreferencesHandler.LifetimePointsIncr(score);
 				if(dinoGame.isAndroid){
 					dinoGame.ar.submitScoreGPGS(score);
-					//dinoGame.ar.unlockAchievementGPGS("CgklidrglpgbEAIQAg");
-					dinoGame.ar.unlockAchievementGPGS("CgklidrglpgbEAIQAw");
+					if(score == 0) //unlock The Sigert
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQAg");
+					if(PreferencesHandler.getGamesPlayed()>=10)  //unlock Stay Casual
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQAw");
+					if(PreferencesHandler.getGamesPlayed()>=100) //unlock The Addict
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQBA");
+					if(PreferencesHandler.getLifetimePoints() >= 100000) //unlock Point Hoarder
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQBw");
+					if(PreferencesHandler.getLifetimeKills() >= 2500)   //unlock Baby Killer
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQCA");
+					if(baseMultiplier >=3 && !herbivoreAchBlocked) //unlock The Herbivore
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQBg");
+					if(score >= 42 && !streakerAchBlocked)  //unlock The Streaker
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQBQ");
+					if(score >= 10000) //unlock Like a DinoSir
+						dinoGame.ar.unlockAchievementGPGS("CgkIidrglpgbEAIQCQ");
+					
 				}
 				isDeath=true;
 				fadingFactor=0.0f;
@@ -139,6 +165,9 @@ public class PlayLogic {
 			if(touchPos.x>490 &&touchPos.x<660 && touchPos.y>100 && touchPos.y<260){
 				isDeath=false;
 				score=0;
+				kills = 0;
+				herbivoreAchBlocked = false;
+				streakerAchBlocked = false;
 				lane=0;
 				speedIncrease=20;
 				player.updateHitBoxCoords(laneCoordinates[lane][0], laneCoordinates[lane][1]);

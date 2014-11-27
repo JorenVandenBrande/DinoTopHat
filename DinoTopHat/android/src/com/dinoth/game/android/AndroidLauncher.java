@@ -14,7 +14,13 @@ import com.dinoth.logic.AndroidControls;
 import com.google.android.gms.analytics.GoogleAnalytics;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.games.achievement.Achievement;
+import com.google.android.gms.games.achievement.AchievementBuffer;
+import com.google.android.gms.games.achievement.Achievements;
+import com.google.android.gms.games.achievement.Achievements.UpdateAchievementResult;
 import com.google.example.games.basegameutils.GameHelper;
 import com.google.example.games.basegameutils.GameHelper.GameHelperListener;
 
@@ -98,8 +104,17 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 
 	@Override
 	public void unlockAchievementGPGS(String achievementId) {
-		Games.Achievements.reveal(gameHelper.getApiClient(), achievementId);
-		//Games.Achievements.unlock(gameHelper.getApiClient(), achievementId);
+		Games.Achievements.unlock(gameHelper.getApiClient(), achievementId);
+		PendingResult<Achievements.LoadAchievementsResult> res = Games.Achievements.load(gameHelper.getApiClient(), false);
+		AchievementBuffer buff = res.await().getAchievements();
+		int achCount = 0;
+		for(Achievement a : buff){
+			if(a.getState() == 0){
+				achCount++;
+			}
+		}
+		if(achCount >= 8)
+			Games.Achievements.unlock(gameHelper.getApiClient(), "CgkIidrglpgbEAIQCg");
 	}
 
 	@Override
@@ -115,6 +130,15 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	@Override
 	public void getAchievementsGPGS() {
 		if (gameHelper.isSignedIn()) {
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQAg");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQAw");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQBA");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQBQ");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQBg");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQBw");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQCA");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQCQ");
+			Games.Achievements.reveal(gameHelper.getApiClient(), "CgkIidrglpgbEAIQCg");
 			startActivityForResult(Games.Achievements.getAchievementsIntent(gameHelper.getApiClient()), 101);
 		}
 		else if (!gameHelper.isConnecting()) {
