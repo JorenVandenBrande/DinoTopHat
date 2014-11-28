@@ -128,6 +128,10 @@ public class PlayLogic {
 				PreferencesHandler.gamesPlayedIncr();
 				PreferencesHandler.LifetimeKillsIncr(kills);
 				PreferencesHandler.LifetimePointsIncr(score);
+				dinoGame.nbGames++;
+				dinoGame.ar.trackScore(score, dinoGame.nbGames);
+				dinoGame.ar.trackGameOver(TimeUtils.timeSinceMillis(dinoGame.startTime), dinoGame.nbGames);
+				dinoGame.startTime = TimeUtils.millis();
 				if(dinoGame.isAndroid){
 					dinoGame.ar.submitScoreGPGS(score);
 					if(score == 0) //unlock The Sigert

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.Screens.MainMenu;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.LocalIOHandler;
@@ -15,6 +16,8 @@ public class DinoTopHat extends Game {
 	private OrthographicCamera camera;
 	private SpriteBatch batch;
 	public boolean isAndroid;
+	public int nbGames = 0;
+	public long startTime;
 	
 	public IControls controls;
 	public ActionResolver ar;
@@ -23,6 +26,8 @@ public class DinoTopHat extends Game {
 		this.isAndroid = isAndroid;
 		this.controls = cont;
 		this.ar = ar;
+		this.startTime = TimeUtils.millis();
+		ar.trackBeginSession(startTime);
 		ar.setTrackerScreenName("com.dinoth.game.Screens.Play");
 	}
 	

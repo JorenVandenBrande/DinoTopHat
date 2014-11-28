@@ -9,4 +9,7 @@ public interface ActionResolver {
 	public void unlockAchievementGPGS(String achievementId);
 	public void getLeaderboardGPGS();
 	public void getAchievementsGPGS();
+	public void trackBeginSession(long millis);
+	public void trackGameOver(long elapsed, int game);
+	public void trackScore(int score, int game);
 }

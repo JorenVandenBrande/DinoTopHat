@@ -153,4 +153,31 @@ public class AndroidLauncher extends AndroidApplication implements GameHelperLis
 	@Override
 	public void onSignInSucceeded() {
 	}
+
+	@Override
+	public void trackBeginSession(long millis) {
+		globalTracker.send(new HitBuilders.EventBuilder()
+         .setCategory("session")
+         .setAction("begin")
+         .setLabel(""+millis)
+         .build());
+	}
+
+	@Override
+	public void trackGameOver(long elapsed, int game) {
+		globalTracker.send(new HitBuilders.EventBuilder()
+        .setCategory("game")
+        .setAction(""+game)
+        .setLabel(""+elapsed)
+        .build());
+	}
+
+	@Override
+	public void trackScore(int score, int game) {
+		globalTracker.send(new HitBuilders.EventBuilder()
+        .setCategory("score")
+        .setAction(""+game)
+        .setLabel(""+score)
+        .build());
+	}
 }

@@ -43,4 +43,22 @@ public class DummyActionResolver implements ActionResolver{
 		
 	}
 
+	@Override
+	public void trackBeginSession(long millis) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void trackScore(int score, int game) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void trackGameOver(long elapsed, int game) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
