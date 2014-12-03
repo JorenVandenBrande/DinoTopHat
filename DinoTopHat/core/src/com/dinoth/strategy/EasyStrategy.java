@@ -2,6 +2,7 @@ package com.dinoth.strategy;
 
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.logic.BigDino;
 import com.dinoth.logic.Entity;
 import com.dinoth.logic.PalmTree;
@@ -10,8 +11,11 @@ import com.dinoth.logic.SmallDino;
 
 public class EasyStrategy extends Strategy{
 	
+	private long prevTime;
+
 	public EasyStrategy(){
 		this.recreate();
+		this.prevTime = TimeUtils.nanoTime();
 	}
 	
 	@Override
@@ -45,6 +49,7 @@ public class EasyStrategy extends Strategy{
 	}
 	
 	public float getSpawnDelay(float spawnDelay) {
+		
 		if(dinoCounter%7==0){
 			return (float) Math.max(200000000, spawnDelay-100000000);
 		}
@@ -58,9 +63,23 @@ public class EasyStrategy extends Strategy{
 	}
 
 	public int getBaseMultiplier() {
+		long prev = TimeUtils.timeSinceNanos(prevTime);
 		
-		return dinoCounter/75 +1;
+		long fap = 15000000000L;
+		if(prev >= fap){
+			multi++;
+		prevTime = TimeUtils.nanoTime();}
+		
+		return multi;
 
+	}
+
+	public float getProgress() {
+		if(dinoCounter==0){
+			prevTime = TimeUtils.nanoTime();
+			return 0.0f;
+		}
+		return (TimeUtils.timeSinceNanos(prevTime))/15000000000.0f;
 	}
 
 }

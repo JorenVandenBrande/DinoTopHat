@@ -192,6 +192,7 @@ public class PlayLogic {
 		if(baseMultiplier!=easyStrat.getBaseMultiplier()){
 			baseMultiplier=easyStrat.getBaseMultiplier();
 		}
+		baseMultiplier=easyStrat.getBaseMultiplier();
 		
 	}
 
@@ -274,7 +275,9 @@ public class PlayLogic {
 	}
 	
 	public float getMultiplierProgress(){
-		return ((easyStrat.getDinoCounter()%75)/75.0f);
+		if(isDeath)
+			return 0.0f;
+		return easyStrat.getProgress();
 	}
 	
 	public Sprite getChicky(float delta){

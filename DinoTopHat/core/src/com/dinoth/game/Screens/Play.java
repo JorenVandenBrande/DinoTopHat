@@ -21,7 +21,16 @@ public class Play implements Screen{
 	Sprite sprite;
 	
 	
-	private Texture backGround;
+	private Texture backGround11;
+	private Texture backGround12;
+	private Texture backGround21;
+	private Texture backGround22;
+	private Texture backGround31;
+	private Texture backGround32;
+	private Texture backGround41;
+	private Texture backGround42;
+	private Texture backGround51;
+	private Texture backGround52;
 	private Texture muteImage;
 	private Texture mutedIm;
 	private Texture deathScreen;
@@ -64,10 +73,11 @@ public class Play implements Screen{
 		camera.update();
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
-		sprite.setColor(1, 1, 1, 1f);
-		sprite.setBounds(0, 0, 960, 540);
-		sprite.draw(batch);
-		//batch.draw(backGround, 0, 0, 960, 540);
+//		sprite.setColor(1, 1, 1, 1f);
+//		sprite.setBounds(0, 0, 960, 540);
+//		sprite.draw(batch);
+		
+		this.animateBackground();
 		if(DinoMusic.isPlaying())
 			batch.draw(muteImage,10,460,70,70);
 		else
@@ -76,7 +86,7 @@ public class Play implements Screen{
 		for(Entity ent:playGame.makeSpriteList()){
 			batch.draw(ent.getFrame(stateTime), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
 			//draw hitboxes for debugging
-			//batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
+			batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
 		}
 		playGame.getChicky(delta).draw(batch);
 		batch.draw(chicklett,150,460,70,70);
@@ -121,7 +131,92 @@ public class Play implements Screen{
 		}
 		
 	}
-	
+	float xMountain=0;
+	float xMountainRange=0;
+	float xRunningField = 0;
+	float xFrontField = 0;
+	private void animateBackground() {
+		/////Air
+		batch.draw(backGround11, 0, 0, 960, 540);
+		
+		/////Mountain Range animation
+		float x1 = -xMountainRange;
+		if(xMountainRange>=3840){
+			xMountainRange = 3840-xMountainRange;
+			x1 = xMountainRange;
+		}else if(xMountainRange>= 1920){
+			x1 = 1920 + (1920-xMountainRange);
+		}else{
+			x1 = -xMountainRange;
+		}
+		batch.draw(backGround21, x1, 0, 1920, 540);
+		
+		float x2 = 1920-xMountainRange;
+		batch.draw(backGround22, x2, 0, 1920, 540);
+		xMountainRange+=30*Gdx.graphics.getDeltaTime();
+		
+		/////Mountain animation
+		x1 = -xMountain;
+		if(xMountain>=3840){
+			xMountain = 3840-xMountain;
+			x1 = xMountain;
+		}else if(xMountain>= 1920){
+			x1 = 1920 + (1920-xMountain);
+		}else{
+			x1 = -xMountain;
+		}
+		batch.draw(backGround31, x1, 0, 1920, 540);
+		
+		x2 = 1920-xMountain;
+		
+		batch.draw(backGround32, x2, 0, 1920, 540);
+		
+		
+		xMountain+=50*Gdx.graphics.getDeltaTime();
+		
+		/////Running field animation
+		
+		x1 = -xRunningField;
+		if(xRunningField>=3840){
+			xRunningField = 3840-xRunningField;
+			x1 = xRunningField;
+		}else if(xRunningField>= 1920){
+			x1 = 1920 + (1920-xRunningField);
+		}else{
+			x1 = -xRunningField;
+		}
+		batch.draw(backGround41, x1, 0, 1920, 540);
+		
+		x2 = 1920-xRunningField;
+		
+		batch.draw(backGround42, x2, 0, 1920, 540);
+		
+		
+		xRunningField+=100*Gdx.graphics.getDeltaTime();
+		
+		
+		
+		/////Front field animation
+		x1 = -xFrontField;
+		if(xFrontField>=3840){
+			xFrontField = 3840-xFrontField;
+			x1 = xFrontField;
+		}else if(xFrontField>= 1920){
+			x1 = 1920 + (1920-xFrontField);
+		}else{
+			x1 = -xFrontField;
+		}
+		batch.draw(backGround51, x1, 0, 1920, 540);
+		
+		x2 = 1920-xFrontField;
+		
+		batch.draw(backGround52, x2, 0, 1920, 540);
+		
+		
+		xFrontField+=150*Gdx.graphics.getDeltaTime();
+		
+	}
+
 	private void drawDeathScreen() {
 		batch.draw(deathScreen,250,70,460,400);
 		font.setScale((float)0.65);
@@ -143,7 +238,16 @@ public class Play implements Screen{
 	@Override
 	public void show() {
 		
-		backGround = new Texture(Gdx.files.internal("PlayScreen/background.png"));
+		backGround11 = new Texture(Gdx.files.internal("backgroundplayscreen/air.png"));
+		backGround12 = new Texture(Gdx.files.internal("backgroundplayscreen/air.png"));
+		backGround21 = new Texture(Gdx.files.internal("backgroundplayscreen/mountainrange.png"));
+		backGround22 = new Texture(Gdx.files.internal("backgroundplayscreen/mountainrange.png"));
+		backGround31 = new Texture(Gdx.files.internal("backgroundplayscreen/mountain.png"));
+		backGround32 = new Texture(Gdx.files.internal("backgroundplayscreen/mountain.png"));
+		backGround41 = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
+		backGround42 = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
+		backGround51 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
+		backGround52 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreenpc.png"));
 		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
 		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect2best.png"));
@@ -154,14 +258,14 @@ public class Play implements Screen{
 		muteImage=new Texture(Gdx.files.internal("PlayScreen/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("PlayScreen/muted.png"));
 		
-		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
+		hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
 		menuButton = new Texture(Gdx.files.internal("PlayScreen/dinomenu.png"));
 		progressBorder = new Texture(Gdx.files.internal("PlayScreen/progressbarborder.png"));
 		progressFilling = new Texture(Gdx.files.internal("PlayScreen/progressbarfilling.png"));
-		sprite=new Sprite(backGround);
+		//sprite=new Sprite(backGround);
 		
 	}
 	
@@ -184,11 +288,11 @@ public class Play implements Screen{
 
 	@Override
 	public void dispose() {
-		backGround.dispose();
-		backGround.dispose();
+		//backGround.dispose();
+		//backGround.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
-		//hitBox.dispose();
+		hitBox.dispose();
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();
@@ -198,6 +302,16 @@ public class Play implements Screen{
 		tutScreen2.dispose();
 		progressBorder.dispose();
 		progressFilling.dispose();
+		backGround11.dispose();
+		backGround21.dispose();
+		backGround31.dispose();
+		backGround41.dispose();
+		backGround51.dispose();
+		backGround52.dispose();
+		backGround42.dispose();
+		backGround32.dispose();
+		backGround22.dispose();
+		backGround12.dispose();
 	}
 
 }
