@@ -189,7 +189,7 @@ public class Play implements Screen{
 		
 		x2 = 1920-xRunningField;
 		
-		batch.draw(backGround42, x2, 0, 1920, 540);
+		batch.draw(backGround42, x2-1, 0, 1922, 540);
 		
 		
 		xRunningField+=100*Gdx.graphics.getDeltaTime();
