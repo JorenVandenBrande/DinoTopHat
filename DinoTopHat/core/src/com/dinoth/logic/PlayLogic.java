@@ -15,22 +15,25 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
-import com.dinoth.strategy.EasyStrategy;
+import com.dinoth.strategy.AdvancedStrategy;
+import com.dinoth.strategy.Strategy;
 
 public class PlayLogic {
 
 	private Texture userDino;
+	private Texture userDinoDead;
 	private Texture chicky;
 	
 	Sprite chicklettSprite;
 	
 	private float fadingFactor=0.0f;
+	public float shaking=0.0f;
 	private float placement;
 	
 	private OrthographicCamera camera;
 	
 	private Entity player;
-	private EasyStrategy easyStrat;
+	private Strategy strat;
 	
 	private Array<Entity> allDinos;
 	public static final int[][] laneCoordinates = new int[][]{{50,30},{62, 110},{74, 190},{86, 270}};
@@ -61,7 +64,7 @@ public class PlayLogic {
 		this.dinoGame = dinoGame;
 		this.controls = controls;
 		this.camera = camera;
-		this.easyStrat = new EasyStrategy();
+		this.strat = new AdvancedStrategy();
 		if(this.controls instanceof AndroidControls ){
 			((AndroidControls) this.controls).setLogic(this);
 		}
@@ -88,13 +91,16 @@ public class PlayLogic {
 		player.setLane(lane);
 		if(TimeUtils.nanoTime() - lastDinoTime > spawnDelay) {
 			spawnDino();
-			speedIncrease=easyStrat.getSpeedIncrease(speedIncrease);
-			spawnDelay = easyStrat.getSpawnDelay(spawnDelay);
+			speedIncrease=strat.getSpeedIncrease(speedIncrease);
+			spawnDelay = strat.getSpawnDelay(spawnDelay);
 		}
 		Iterator<Entity> iter = allDinos.iterator();
 		while(iter.hasNext()){
 			Entity dino = iter.next();
-			dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed()+speedIncrease)*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
+			if(dino instanceof PalmTree)
+				dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed())*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
+			else
+				dino.updateHitBoxCoords(dino.getHitBox().x-(dino.getBaseSpeed()+speedIncrease)*Gdx.graphics.getDeltaTime(), dino.getHitBox().y);
 			if(dino.getHitBox().x + 100 < 0 && dino.isGood()){
 				if(score < 42){
 					streakerAchBlocked = true;
@@ -110,6 +116,7 @@ public class PlayLogic {
 				kills++;
 				score+=1*baseMultiplier;
 				fadingFactor=1.0f;
+				shaking = 1.0f;
 				placement=0;
 				iter.remove();
 			}
@@ -154,6 +161,7 @@ public class PlayLogic {
 				}
 				isDeath=true;
 				fadingFactor=0.0f;
+				shaking = 0.0f;
 				placement=0;
 				break;
 			}
@@ -178,7 +186,7 @@ public class PlayLogic {
 				player.setLane(0);
 				allDinos = new Array<Entity>();
 				baseMultiplier=1;
-				easyStrat.recreate();
+				strat.recreate();
 			}else if(touchPos.x>290 &&touchPos.x<460 && touchPos.y>100 && touchPos.y<260){
 				return 1;
 			}
@@ -186,13 +194,14 @@ public class PlayLogic {
 	}
 	
 	private void spawnDino(){
-		
-		this.addEntity(easyStrat.spawnDino());
+		Entity ent = strat.spawnDino();
+		if(ent != null)
+			this.addEntity(ent);
 		lastDinoTime = TimeUtils.nanoTime();
-		if(baseMultiplier!=easyStrat.getBaseMultiplier()){
-			baseMultiplier=easyStrat.getBaseMultiplier();
+		if(baseMultiplier!=strat.getBaseMultiplier()){
+			baseMultiplier=strat.getBaseMultiplier();
 		}
-		baseMultiplier=easyStrat.getBaseMultiplier();
+		baseMultiplier=strat.getBaseMultiplier();
 		
 	}
 
@@ -220,14 +229,15 @@ public class PlayLogic {
 
 	public void create() {
 		userDino = new Texture(Gdx.files.internal("PlayLogic/playerdinosheet.png"));
-		easyStrat.recreate();
+		userDinoDead = new Texture(Gdx.files.internal("PlayLogic/playerdinoghostsheet.png"));
+		strat.recreate();
 		allDinos=new Array<Entity>();
 		lane = 0;
 		baseMultiplier=1;
 		Rectangle userDinoRect = new Rectangle();
 		userDinoRect.x = laneCoordinates[lane][0];
 		userDinoRect.y = laneCoordinates[lane][1];
-		player = new PlayerDino(userDino,userDinoRect);
+		player = new PlayerDino(userDino, userDinoDead,userDinoRect);
 		player.setLane(lane);
 		score=0;
 		isDeath=false;
@@ -246,8 +256,8 @@ public class PlayLogic {
 
 	public void dispose() {
 		userDino.dispose();
-		easyStrat.dispose();
-		
+		strat.dispose();
+		userDinoDead.dispose();
 	}
 
 
@@ -277,7 +287,7 @@ public class PlayLogic {
 	public float getMultiplierProgress(){
 		if(isDeath)
 			return 0.0f;
-		return easyStrat.getProgress();
+		return strat.getProgress();
 	}
 	
 	public Sprite getChicky(float delta){
@@ -287,6 +297,7 @@ public class PlayLogic {
 		if(fadingFactor>0){
 			placement = placement + 30*delta;
 			fadingFactor=Math.max(0, fadingFactor-delta);
+			shaking = Math.max(0, shaking-4*delta);
 			chicklettSprite.setBounds(laneCoordinates[lane][0]+player.getImageWidth()/6, laneCoordinates[lane][1]+player.getImageHeight()+ placement, 30, 30);
 		}
 		chicklettSprite.setColor(1, 1, 1, fadingFactor);

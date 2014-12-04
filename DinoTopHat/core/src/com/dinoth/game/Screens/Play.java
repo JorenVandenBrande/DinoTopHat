@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.dinoth.game.DinoTopHat;
 import com.dinoth.game.common.DinoMusic;
 import com.dinoth.game.common.PreferencesHandler;
@@ -31,6 +30,7 @@ public class Play implements Screen{
 	private Texture backGround42;
 	private Texture backGround51;
 	private Texture backGround52;
+	private Texture lanes;
 	private Texture muteImage;
 	private Texture mutedIm;
 	private Texture deathScreen;
@@ -38,7 +38,7 @@ public class Play implements Screen{
 	private Texture tutScreen;
 	private Texture tutScreen2;
 	private Texture controlSelect;
-	private Texture hitBox;
+	//private Texture hitBox;
 	private Texture progressBorder;
 	private Texture progressFilling;
 	private Texture chicklett;
@@ -84,12 +84,17 @@ public class Play implements Screen{
 			batch.draw(mutedIm,10,460,70,70);
 		
 		for(Entity ent:playGame.makeSpriteList()){
-			batch.draw(ent.getFrame(stateTime), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
+			batch.draw(ent.getFrame(stateTime, playGame.isDeath()), ent.getImageX(), ent.getImageY(), ent.getImageWidth(), ent.getImageHeight());
 			//draw hitboxes for debugging
-			batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
+			//batch.draw(hitBox, ent.getHitBox().x, ent.getHitBox().y, ent.getHitBox().width, ent.getHitBox().height);
 		}
 		playGame.getChicky(delta).draw(batch);
-		batch.draw(chicklett,150,460,70,70);
+		batch.draw(chicklett,
+				150-Math.round(70*(0.125f*Math.sin(2*Math.PI*(1-Math.min(1,playGame.shaking)))))/2,
+				460-Math.round(70*(0.125f*Math.cos(2*Math.PI*(1-Math.min(1,playGame.shaking)))))/2, 
+				Math.round(70*(0.125f*Math.sin(2*Math.PI*(1-Math.min(1,playGame.shaking)))+1f)),
+				Math.round(70*(0.125f*Math.cos(2*Math.PI*(1-Math.min(1,playGame.shaking)))+0.875f)));
+		
 		scoreStr = " "+playGame.getScore();
 		font.setScale((float)0.7);
 		font.draw(batch, scoreStr, 225, 510);
@@ -192,7 +197,7 @@ public class Play implements Screen{
 		batch.draw(backGround42, x2-1, 0, 1922, 540);
 		
 		
-		xRunningField+=100*Gdx.graphics.getDeltaTime();
+		xRunningField+=200*Gdx.graphics.getDeltaTime();
 		
 		
 		
@@ -213,8 +218,10 @@ public class Play implements Screen{
 		batch.draw(backGround52, x2, 0, 1920, 540);
 		
 		
-		xFrontField+=150*Gdx.graphics.getDeltaTime();
+		xFrontField+=250*Gdx.graphics.getDeltaTime();
 		
+		/////lanes
+		batch.draw(lanes, 0,0);
 	}
 
 	private void drawDeathScreen() {
@@ -248,6 +255,7 @@ public class Play implements Screen{
 		backGround42 = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
 		backGround51 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
 		backGround52 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
+		lanes = new Texture(Gdx.files.internal("backgroundplayscreen/lanes.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreenpc.png"));
 		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
 		controlSelect = new Texture(Gdx.files.internal("PlayScreen/controlselect2best.png"));
@@ -258,7 +266,7 @@ public class Play implements Screen{
 		muteImage=new Texture(Gdx.files.internal("PlayScreen/dinomute.png"));
 		mutedIm = new Texture(Gdx.files.internal("PlayScreen/muted.png"));
 		
-		hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
+		//hitBox = new Texture(Gdx.files.internal("Playscreen/hitbox.png"));
 		deathScreen = new Texture(Gdx.files.internal("PlayScreen/scorebackground.png"));
 		replayScreen= new Texture(Gdx.files.internal("PlayScreen/dinoreplay.png"));
 		chicklett = new Texture(Gdx.files.internal("PlayLogic/chicklett_as.png"));
@@ -292,7 +300,7 @@ public class Play implements Screen{
 		//backGround.dispose();
 		muteImage.dispose();
 		mutedIm.dispose();
-		hitBox.dispose();
+		//hitBox.dispose();
 		deathScreen.dispose();
 		replayScreen.dispose();
 		tutScreen.dispose();
@@ -312,6 +320,7 @@ public class Play implements Screen{
 		backGround32.dispose();
 		backGround22.dispose();
 		backGround12.dispose();
+		lanes.dispose();
 	}
 
 }

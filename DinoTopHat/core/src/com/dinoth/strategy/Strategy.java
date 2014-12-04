@@ -24,6 +24,10 @@ public abstract class Strategy {
 	
 	public abstract int getSpeedIncrease(int speedIncrease);
 	
+	public abstract int getBaseMultiplier();
+	
+	public abstract float getProgress();
+	
 	public void dispose() {
 		smallDino.dispose();
 		bigDino.dispose();
