@@ -176,6 +176,7 @@ public class PlayLogic {
 			camera.unproject(touchPos);
 			if(touchPos.x>490 &&touchPos.x<660 && touchPos.y>100 && touchPos.y<260){
 				isDeath=false;
+				strat.day = true;
 				score=0;
 				kills = 0;
 				herbivoreAchBlocked = false;
@@ -288,6 +289,13 @@ public class PlayLogic {
 		if(isDeath)
 			return 0.0f;
 		return strat.getProgress();
+	}
+	
+	public float getDayProgress(){
+		if(strat.day){
+			return getMultiplierProgress()/2;
+		}
+		return getMultiplierProgress()/2 + 0.5f;	
 	}
 	
 	public Sprite getChicky(float delta){

@@ -105,10 +105,10 @@ public class AdvancedStrategy extends Strategy{
 		long fap = 15000000000L;
 		if(prev >= fap){
 			multi++;
-		prevTime = TimeUtils.nanoTime();}
-		
+			prevTime = TimeUtils.nanoTime();
+			day = !day;
+		}
 		return multi;
-
 	}
 
 	public float getProgress() {

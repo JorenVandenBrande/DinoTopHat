@@ -18,18 +18,20 @@ import com.dinoth.logic.PlayLogic;
 public class Play implements Screen{
 
 	Sprite sprite;
+	private Sprite dayAir;
+	private Sprite dayRange;
+	private Sprite dayMount;
+	private Sprite dayRun;
 	
-	
-	private Texture backGround11;
-	private Texture backGround12;
-	private Texture backGround21;
-	private Texture backGround22;
-	private Texture backGround31;
-	private Texture backGround32;
-	private Texture backGround41;
-	private Texture backGround42;
-	private Texture backGround51;
-	private Texture backGround52;
+	private Texture backGroundAirDay;
+	private Texture backGroundRangeDay;
+	private Texture backGroundMountDay;
+	private Texture backGroundRunDay;
+	private Texture backGroundFieldDay;
+	private Texture backGroundAirNight;
+	private Texture backGroundRangeNight;
+	private Texture backGroundMountNight;
+	private Texture backGroundRunNight;
 	private Texture lanes;
 	private Texture muteImage;
 	private Texture mutedIm;
@@ -100,7 +102,7 @@ public class Play implements Screen{
 		font.draw(batch, scoreStr, 225, 510);
 		font.draw(batch, "multiplier: "+ playGame.getMultiplier() , 500, 510 );
 		batch.draw(progressBorder, 500, 420, 347,44);
-		batch.draw(progressFilling, 504, 420, playGame.getMultiplierProgress()*339, 44);
+		batch.draw(progressFilling, 504, 420, playGame.getMultiplierProgress()*324, 44);
 		if(playGame.isDeath()) this.drawDeathScreen();
 		if(dinoGame.controls.showControlSelect()){
 			batch.draw(controlSelect, 0, 0, 960, 540);
@@ -141,8 +143,15 @@ public class Play implements Screen{
 	float xRunningField = 0;
 	float xFrontField = 0;
 	private void animateBackground() {
+		dayAir.setColor(1, 1, 1, getDayTime());
+		dayMount.setColor(1, 1, 1, getDayTime());
+		dayRange.setColor(1, 1, 1, getDayTime());
+		dayRun.setColor(1, 1, 1, getDayTime());
+		
 		/////Air
-		batch.draw(backGround11, 0, 0, 960, 540);
+		batch.draw(backGroundAirNight, 0, 0, 960, 540);
+		dayAir.setBounds(0, 0, 960, 540);
+		dayAir.draw(batch);
 		
 		/////Mountain Range animation
 		float x1 = -xMountainRange;
@@ -154,10 +163,15 @@ public class Play implements Screen{
 		}else{
 			x1 = -xMountainRange;
 		}
-		batch.draw(backGround21, x1, 0, 1920, 540);
+		batch.draw(backGroundRangeNight, x1, 0, 1920, 540);
+		dayRange.setBounds(x1, 0, 1920, 540);
+		dayRange.draw(batch);
 		
 		float x2 = 1920-xMountainRange;
-		batch.draw(backGround22, x2, 0, 1920, 540);
+		batch.draw(backGroundRangeNight, x2, 0, 1920, 540);
+		dayRange.setBounds(x2, 0, 1920, 540);
+		dayRange.draw(batch);
+		
 		xMountainRange+=30*Gdx.graphics.getDeltaTime();
 		
 		/////Mountain animation
@@ -170,12 +184,15 @@ public class Play implements Screen{
 		}else{
 			x1 = -xMountain;
 		}
-		batch.draw(backGround31, x1, 0, 1920, 540);
+		batch.draw(backGroundMountNight, x1, 0, 1920, 540);
+		dayMount.setBounds(x1, 0, 1920, 540);
+		dayMount.draw(batch);
 		
 		x2 = 1920-xMountain;
 		
-		batch.draw(backGround32, x2, 0, 1920, 540);
-		
+		batch.draw(backGroundMountNight, x2, 0, 1920, 540);
+		dayMount.setBounds(x2, 0, 1920, 540);
+		dayMount.draw(batch);
 		
 		xMountain+=50*Gdx.graphics.getDeltaTime();
 		
@@ -190,12 +207,15 @@ public class Play implements Screen{
 		}else{
 			x1 = -xRunningField;
 		}
-		batch.draw(backGround41, x1, 0, 1920, 540);
+		batch.draw(backGroundRunNight, x1, 0, 1920, 540);
+		dayRun.setBounds(x1, 0, 1920, 540);
+		dayRun.draw(batch);
 		
 		x2 = 1920-xRunningField;
 		
-		batch.draw(backGround42, x2-1, 0, 1922, 540);
-		
+		batch.draw(backGroundRunNight, x2-1, 0, 1922, 540);
+		dayRun.setBounds(x2-1, 0, 1922, 540);
+		dayRun.draw(batch);
 		
 		xRunningField+=200*Gdx.graphics.getDeltaTime();
 		
@@ -211,11 +231,11 @@ public class Play implements Screen{
 		}else{
 			x1 = -xFrontField;
 		}
-		batch.draw(backGround51, x1, 0, 1920, 540);
+		batch.draw(backGroundFieldDay, x1, 0, 1920, 540);
 		
 		x2 = 1920-xFrontField;
 		
-		batch.draw(backGround52, x2, 0, 1920, 540);
+		batch.draw(backGroundFieldDay, x2, 0, 1920, 540);
 		
 		
 		xFrontField+=250*Gdx.graphics.getDeltaTime();
@@ -245,16 +265,15 @@ public class Play implements Screen{
 	@Override
 	public void show() {
 		
-		backGround11 = new Texture(Gdx.files.internal("backgroundplayscreen/air.png"));
-		backGround12 = new Texture(Gdx.files.internal("backgroundplayscreen/air.png"));
-		backGround21 = new Texture(Gdx.files.internal("backgroundplayscreen/mountainrange.png"));
-		backGround22 = new Texture(Gdx.files.internal("backgroundplayscreen/mountainrange.png"));
-		backGround31 = new Texture(Gdx.files.internal("backgroundplayscreen/mountain.png"));
-		backGround32 = new Texture(Gdx.files.internal("backgroundplayscreen/mountain.png"));
-		backGround41 = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
-		backGround42 = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
-		backGround51 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
-		backGround52 = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
+		backGroundAirDay = new Texture(Gdx.files.internal("backgroundplayscreen/air.png"));
+		backGroundRangeDay = new Texture(Gdx.files.internal("backgroundplayscreen/mountainrange.png"));
+		backGroundMountDay= new Texture(Gdx.files.internal("backgroundplayscreen/mountain.png"));
+		backGroundRunDay = new Texture(Gdx.files.internal("backgroundplayscreen/runfield.png"));
+		backGroundFieldDay = new Texture(Gdx.files.internal("backgroundplayscreen/field.png"));
+		backGroundAirNight = new Texture(Gdx.files.internal("backgroundplayscreen/nightair.png"));
+		backGroundRangeNight = new Texture(Gdx.files.internal("backgroundplayscreen/nightmountainrange.png"));
+		backGroundMountNight = new Texture(Gdx.files.internal("backgroundplayscreen/nightmountain.png"));
+		backGroundRunNight = new Texture(Gdx.files.internal("backgroundplayscreen/nightrunfield.png"));
 		lanes = new Texture(Gdx.files.internal("backgroundplayscreen/lanes.png"));
 		tutScreen = new Texture(Gdx.files.internal("PlayScreen/tutscreenpc.png"));
 		tutScreen2 = new Texture(Gdx.files.internal("PlayScreen/tutscreenpart2.png"));
@@ -275,6 +294,15 @@ public class Play implements Screen{
 		progressFilling = new Texture(Gdx.files.internal("PlayScreen/progressbarfilling.png"));
 		//sprite=new Sprite(backGround);
 		
+		dayAir = new Sprite(backGroundAirDay);
+		dayMount = new Sprite(backGroundMountDay);
+		dayRange = new Sprite(backGroundRangeDay);
+		dayRun = new Sprite(backGroundRunDay);
+		
+	}
+	
+	private float getDayTime(){
+		return (float)((Math.cos(playGame.getDayProgress()*2*Math.PI)+1)/2);
 	}
 	
 
@@ -310,16 +338,15 @@ public class Play implements Screen{
 		tutScreen2.dispose();
 		progressBorder.dispose();
 		progressFilling.dispose();
-		backGround11.dispose();
-		backGround21.dispose();
-		backGround31.dispose();
-		backGround41.dispose();
-		backGround51.dispose();
-		backGround52.dispose();
-		backGround42.dispose();
-		backGround32.dispose();
-		backGround22.dispose();
-		backGround12.dispose();
+		backGroundAirDay.dispose();
+		backGroundRangeDay.dispose();
+		backGroundMountDay.dispose();
+		backGroundRunDay.dispose();
+		backGroundFieldDay.dispose();
+		backGroundAirNight.dispose();
+		backGroundMountNight.dispose();
+		backGroundRangeNight.dispose();
+		backGroundRunNight.dispose();
 		lanes.dispose();
 	}
 

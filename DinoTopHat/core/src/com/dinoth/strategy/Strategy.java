@@ -18,6 +18,8 @@ public abstract class Strategy {
 		return this.dinoCounter;
 	}
 	
+	public boolean day = true;
+	
 	public abstract  Entity spawnDino();
 	
 	public abstract float getSpawnDelay(float spawnDelay);
